@@ -2,6 +2,8 @@ package com.okta.springbootvue;
 
 import com.okta.springbootvue.entity.oil.*;
 import com.okta.springbootvue.repository.oil.*;
+import com.okta.springbootvue.entity.may.*;
+import com.okta.springbootvue.repository.may.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.ApplicationRunner;
@@ -18,7 +20,7 @@ public class SpringBootVueApplication {
 
     // Bootstrap some test data into the in-memory database
     @Bean  
-    ApplicationRunner init(EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository, VacancyRepository vacancyRepository) {  
+    ApplicationRunner init(PointPriceRepository pointPriceRepository, CollectPointRepository collectPointRepository, EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository, VacancyRepository vacancyRepository) {  
         return args -> {  
             Stream.of("Male", "Female").forEach(gender -> {
                 Gender g = new Gender();
@@ -30,6 +32,12 @@ public class SpringBootVueApplication {
                 Type t = new Type();
                 t.setType(type);
                 typeRepository.save(t);
+            });
+
+            Stream.of(30, 50, 60).forEach(type -> {
+                PointPrice p = new PointPrice();
+                p.setType(type);
+                pointPriceRepository.save(p);
             });
 
             Stream.of("Manager", "Employee").forEach(vacancy -> {
@@ -52,9 +60,11 @@ public class SpringBootVueApplication {
             });
             });
 
+            pointPriceRepository.findAll().forEach(System.out::println);
+
             genderRepository.findAll().forEach(System.out::println);
             typeRepository.findAll().forEach(System.out::println);
-            vacancyRepository.findAll().forEach(System.out::println); 
+            vacancyRepository.findAll().forEach(System.out::println);
         };  
     }  
  
