@@ -1,4 +1,4 @@
-package com.okta.backend.controller;
+package com.okta.springbootvue.controller.ta;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.okta.backend.entity.ta.*;
-import com.okta.backend.repository.*;
+import com.okta.springbootvue.entity.ta.*;
+import com.okta.springbootvue.entity.oil.*;
+import com.okta.springbootvue.repository.ta.*;
+import com.okta.springbootvue.repository.oil.*;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,7 +27,6 @@ public class RegisterController {
     private TitleNameRepository titlenameRepository;
     @Autowired
     private GenderRepository genderRepository;
-
 
     RegisterController(RegisterRepository registerRepository) {
         this.registerRepository = registerRepository;

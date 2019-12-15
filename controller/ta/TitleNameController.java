@@ -1,7 +1,7 @@
-package com.okta.backend.controller;
+package com.okta.springbootvue.controller.ta;
 
-import com.okta.backend.entity.ta.TitleName;
-import com.okta.backend.repository.TitleNameRepository;
+import com.okta.springbootvue.entity.ta.TitleName;
+import com.okta.springbootvue.repository.ta.TitleNameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
