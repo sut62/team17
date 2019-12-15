@@ -8,11 +8,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.okta.springbootvue.entity.oil.Employee;
 import com.okta.springbootvue.entity.oil.Gender;
 import com.okta.springbootvue.entity.ta.TitleName;
+import com.okta.springbootvue.entity.may.CollectPoint;
 
 @Data
 @Entity
@@ -49,4 +51,7 @@ public class Register {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Gender.class)
     @JoinColumn(name = "ID", insertable = true)
     private Gender gender;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Collection<CollectPoint> collectpoint;
 }

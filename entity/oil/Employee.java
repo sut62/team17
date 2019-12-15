@@ -5,8 +5,8 @@ import java.util.*;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import com.okta.springbootvue.entity.oil.*;
-import java.util.Collection;
 import com.okta.springbootvue.entity.joy.*;
+import com.okta.springbootvue.entity.may.CollectPoint;
 
 @Data
 @Entity
@@ -43,5 +43,8 @@ public class Employee {
 
     @OneToMany(fetch = FetchType.EAGER)
     private Collection<Add_Product> add_product;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Collection<CollectPoint> collectpoint;
 
 }
