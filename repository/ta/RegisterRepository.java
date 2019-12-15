@@ -8,4 +8,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public
 interface RegisterRepository extends JpaRepository<Register, Long> {
+    Register findById(long id);
 }
