@@ -19,6 +19,8 @@ import com.okta.springbootvue.entity.joy.*;
 import com.okta.springbootvue.repository.joy.*;
 import com.okta.springbootvue.entity.oil.*;
 import com.okta.springbootvue.repository.oil.*;
+import com.okta.springbootvue.entity.ta.*;
+import com.okta.springbootvue.repository.ta.*;
 import com.okta.springbootvue.entity.apple.*;
 import com.okta.springbootvue.repository.apple.*;
 
