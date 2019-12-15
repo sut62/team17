@@ -1,4 +1,4 @@
-package com.okta.backend.entity.ta;
+package com.okta.springbootvue.entity.ta;
 
 import lombok.*;
 import javax.persistence.*;
@@ -10,8 +10,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.okta.backend.entity.ta.Gender;
-import com.okta.backend.entity.ta.TitleName;
+import com.okta.springbootvue.entity.oil.Employee;
+import com.okta.springbootvue.entity.oil.Gender;
+import com.okta.springbootvue.entity.ta.TitleName;
 
 @Data
 @Entity
@@ -42,10 +43,10 @@ public class Register {
     private TitleName titlename;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
-    @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
+    @JoinColumn(name = "EM_ID", insertable = true)
     private Employee employee;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Gender.class)
-    @JoinColumn(name = "GENDER_ID", insertable = true)
+    @JoinColumn(name = "ID", insertable = true)
     private Gender gender;
 }
