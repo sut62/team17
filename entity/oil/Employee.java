@@ -5,6 +5,8 @@ import java.util.*;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import com.okta.springbootvue.entity.oil.*;
+import java.util.Collection;
+import com.okta.springbootvue.entity.joy.*;
 
 @Data
 @Entity
@@ -38,5 +40,8 @@ public class Employee {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Vacancy.class)
     @JoinColumn(name = "VACANCY_ID", insertable = true)
     private Vacancy vacancy;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Collection<Add_Product> add_product;
 
 }
