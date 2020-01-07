@@ -1,6 +1,12 @@
 <template>
   <v-container>
     <v-card color="teal lighten-5">
+    <v-row justify="center">
+      <h1 class="text mt-5 pt-5"
+      style="text-align: center;
+      font: 40px BankGothic Md BT, sans-serif;
+      width: 100%;"><strong>ADD EMPLOYEE SYSTEM</strong></h1>
+    </v-row>
     <v-col></v-col>
     <v-row justify="center">
     <v-col cols="12" sm="5">
@@ -74,6 +80,9 @@
       <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
         <v-icon dark right>mdi-cancel</v-icon>
       </v-btn>
+      <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
+        <v-icon dark right>mdi-logout</v-icon>
+      </v-btn>
     </v-row>
     <v-col></v-col>
     </v-card>
@@ -101,6 +110,10 @@ export default {
 
   methods: {
     /* eslint-disable no-console */
+    Logout(){
+      this.$router.push("/")
+    },
+
     getUsername() {
       http
         .get("/username")
@@ -213,3 +226,4 @@ export default {
   }
 };
 </script>
+
