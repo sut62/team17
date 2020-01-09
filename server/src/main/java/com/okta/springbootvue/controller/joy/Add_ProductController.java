@@ -7,7 +7,10 @@ import org.springframework.boot.json.JsonParseException;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 
 import com.okta.springbootvue.entity.joy.*;
@@ -35,7 +38,11 @@ public class Add_ProductController {
     Add_ProductController(Add_ProductRepository add_productRepository) {
         this.add_productRepository = add_productRepository;
     }
-
+    
+    @GetMapping("/add_product")
+    public Collection<Add_Product> Add_Products() {
+        return add_productRepository.findAll().stream().collect(Collectors.toList());
+    }
 
     @PostMapping("/add_product/{employee_id}/{brand_id}/{type_product_id}/{quantity}/{price}")
     public Add_Product newAdd_Product(Add_Product newAdd_Product,
