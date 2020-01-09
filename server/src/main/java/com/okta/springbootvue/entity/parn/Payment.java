@@ -49,6 +49,4 @@ public class Payment {
     @JsonManagedReference //แสดงข้อมูลทุกอย่าง
     private Collection<Product> product;
 
-
-
 }

@@ -37,8 +37,9 @@ public class Product {
   
   @Getter@Setter
   private @NonNull Long id;  
-  private @NonNull String name; 
-  private @NonNull Integer count; 
+ // private @NonNull String name; 
+ // private @NonNull Integer count; 
+  private @NonNull Long ProductQty;
 
   @Getter @Setter
   @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL,targetEntity = Payment.class)
