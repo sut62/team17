@@ -36,6 +36,6 @@ public class CollectPoint {
     private PointPrice pointPrice;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PAYMENT_ID")
+    @JoinColumn(name = "PAYMENT_ID",unique = true)
     private Payment payment;
 }
