@@ -32,6 +32,9 @@ public class Register {
     private @NonNull Long id;
     private @NonNull String name;
 
+    @Column(name="TEL")
+    private @NonNull Long tel;
+
     @OneToMany(fetch = FetchType.LAZY)
     private Collection<Payment> payment;
 

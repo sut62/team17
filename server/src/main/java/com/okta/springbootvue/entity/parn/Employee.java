@@ -39,4 +39,6 @@ public class Employee {
     @OneToMany(fetch = FetchType.LAZY)
     private Collection<Payment> payment;
 
+	public void setName(String name) {
+	}
 }
