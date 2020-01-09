@@ -48,8 +48,8 @@ public class SpringBootVueApplication {
                 vacancyRepository.save(v);
             });
 
-            Stream.of("Oil Pattanan").forEach(username -> {
-            Stream.of("2222").forEach(password -> {
+            Stream.of("oil").forEach(username -> {
+            Stream.of("2").forEach(password -> {
                 Employee e = new Employee();
                 LocalDateTime now = LocalDateTime.now();
                 e.setDate(now);
@@ -60,26 +60,27 @@ public class SpringBootVueApplication {
                 e.setVacancy(vacancyRepository.findById(1));
                 employeeRepository.save(e);
             });
+
             });
            Stream.of("L’OREAL", "OLAY", "Maybelline", "AVON","Srichand").forEach(name -> {
 	Brand brand= new Brand(); 													
 	brand.setName(name); 												
 	brandRepository.save(brand); 												
            });
+
            Stream.of("Lipstick", "Eyeliner", "Cushion", "Blush","Mascara","Powder").forEach(name -> {
 	Type_Product type_product= new Type_Product(); 													
 	type_product.setName(name); 												
 	type_productRepository.save(type_product); 												
            });
 
-
             pointPriceRepository.findAll().forEach(System.out::println);
-
             genderRepository.findAll().forEach(System.out::println);
             typeRepository.findAll().forEach(System.out::println);
             vacancyRepository.findAll().forEach(System.out::println);
             brandRepository.findAll().forEach(System.out::println); 
             type_productRepository.findAll().forEach(System.out::println);
+            
         };  
     }  
  
