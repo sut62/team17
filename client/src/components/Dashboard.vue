@@ -4,11 +4,11 @@
     <h1 class="text mt-5 pt-5"><strong>Menu</strong></h1>
     <v-form>
         <p></p>
-        <!--v-row justify="center">
+        <v-row justify="center">
             <v-btn @click="Register" class="cyan lighten-1 white--text">Register</v-btn>
         </v-row>
         <p></p>
-        <v-row justify="center">
+        <!--v-row justify="center">
             <v-btn @click="AddProduct" class="cyan lighten-1 white--text">Add Product</v-btn>
         </v-row>
         <p></p>
@@ -37,21 +37,21 @@
 export default {
     data(){
         return{
-            id:-99
+            emid:-99
         };
     },
     methods: {
         getLockId(){
-            this.id = this.$route.params.em;
+            this.emid = this.$route.params.em;
             
         },
         Logout(){
             this.$router.push("/")
         },
-        /*Register(){
+        Register(){
             this.$router.push({name: 'Register', params: {em: this.emid} });
         },
-        AddProduct(){
+        /*AddProduct(){
             this.$router.push({name: 'AddProduct', params: {em: this.emid} });
         },
         Payment(){
