@@ -43,7 +43,7 @@
           item-value="id"
           :rules="[(v) => !!v || 'Item is required']"
           required
-        ></v-select> <!-- v-model=bind combobox กับ variable ทำการ initialize variable ใน data property -->
+        ></v-select>
       </v-col>
       <v-col cols="12" sm="3">
         <p class="font-weight-black">Type</p>
