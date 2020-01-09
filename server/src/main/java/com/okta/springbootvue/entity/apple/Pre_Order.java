@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import com.okta.springbootvue.entity.oil.Employee;
-import com.okta.springbootvue.entity.apple.Number;
+import com.okta.springbootvue.entity.apple.Quantity;
 import com.okta.springbootvue.entity.ta.TitleName;
 import com.okta.springbootvue.entity.joy.Brand;
 import com.okta.springbootvue.entity.joy.Type_Product;
@@ -40,8 +40,8 @@ public class Pre_Order {
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
     private Employee employee;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Title_Name.class)
-    @JoinColumn(name = "TITLE_NAME_ID", insertable = true)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = TitleName.class)
+    @JoinColumn(name = "TITLENAME_ID", insertable = true)
     private TitleName titlename;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Brand.class)
@@ -52,9 +52,9 @@ public class Pre_Order {
     @JoinColumn(name = "TYPE_PRODUCT_ID", insertable = true)
     private Type_Product type_product;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Number.class)
-    @JoinColumn(name = "NUMBER_ID", insertable = true)
-    private Number number;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Quantity.class)
+    @JoinColumn(name = "QUANTITY_ID", insertable = true)
+    private Quantity quantity;
     
     
 }
