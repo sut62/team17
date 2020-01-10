@@ -6,6 +6,10 @@ import com.okta.springbootvue.entity.ta.*;
 import com.okta.springbootvue.repository.ta.*;
 import com.okta.springbootvue.entity.apple.*;
 import com.okta.springbootvue.repository.apple.*;
+import com.okta.springbootvue.entity.may.*;
+import com.okta.springbootvue.repository.may.*;
+import com.okta.springbootvue.entity.joy.*;
+import com.okta.springbootvue.repository.joy.*;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +27,7 @@ public class SpringBootVueApplication {
 
     // Bootstrap some test data into the in-memory database
     @Bean  
-    ApplicationRunner init(QuantityRepository quantityRepository, EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository, VacancyRepository vacancyRepository,
+    ApplicationRunner init(PointPriceRepository pointPriceRepository, CollectPointRepository collectPointRepository,QuantityRepository quantityRepository, EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository, VacancyRepository vacancyRepository,
     TitleNameRepository titlenameRepository) {  
         return args -> {  
             Stream.of("Male", "Female").forEach(gender -> {
@@ -38,6 +42,12 @@ public class SpringBootVueApplication {
                 typeRepository.save(t);
             });
 
+	Stream.of(30, 50, 60).forEach(type -> {
+                PointPrice p = new PointPrice();
+                p.setType(type);
+                pointPriceRepository.save(p);
+            });
+
             Stream.of(1,2,3,4,5).forEach(quantity -> {
                 Quantity q = new Quantity();
                 q.setQuantity(quantity);
@@ -50,8 +60,8 @@ public class SpringBootVueApplication {
                 vacancyRepository.save(v);
             });
 
-            Stream.of("Oil Pattanan").forEach(username -> {
-            Stream.of("2222").forEach(password -> {
+            Stream.of("oil").forEach(username -> {
+            Stream.of("2").forEach(password -> {
                 Employee e = new Employee();
                 LocalDateTime now = LocalDateTime.now();
                 e.setDate(now);
@@ -63,6 +73,16 @@ public class SpringBootVueApplication {
                 employeeRepository.save(e);
             });
             });
+Stream.of("L’OREAL", "OLAY", "Maybelline", "AVON","Srichand").forEach(name -> {
+				Brand brand= new Brand(); 													// สร้าง Object Customer
+				brand.setName(name); 												// set ชื่อ (majorname) ให้ Object ชื่อ Major
+				brandRepository.save(brand); 												// บันทึก Objcet ชื่อ Customer
+			});
+			Stream.of("Lipstick", "Eyeliner", "Cushion", "Blush","Mascara","Powder").forEach(name -> {
+				Type_Product type_product= new Type_Product(); 													// สร้าง Object Customer
+				type_product.setName(name); 												// set ชื่อ (majorname) ให้ Object ชื่อ Major
+				type_productRepository.save(type_product); 												// บันทึก Objcet ชื่อ Customer
+			});
 
             Stream.of("Mr.", "Miss.", "Professor.", "Dr.").forEach(title -> {
 				TitleName titlename = new TitleName(); // สร้าง Object Video
@@ -70,11 +90,14 @@ public class SpringBootVueApplication {
 				titlenameRepository.save(titlename); // บันทึก Objcet ชื่อ Video
 			});
 
+            pointPriceRepository.findAll().forEach(System.out::println);
             genderRepository.findAll().forEach(System.out::println);
             typeRepository.findAll().forEach(System.out::println);
             vacancyRepository.findAll().forEach(System.out::println); 
             titlenameRepository.findAll().forEach(System.out::println);
             quantityRepository.findAll().forEach(System.out::println);
+            brandRepository.findAll().forEach(System.out::println); 
+            type_productRepository.findAll().forEach(System.out::println);
         };  
     }  
  

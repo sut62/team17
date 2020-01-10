@@ -7,6 +7,7 @@
         <v-select
           class="my-2"
           outlined
+          :readonly="true"
           v-model="add_product.employeeId"
           :items="employees"
           label="Employee"
@@ -80,12 +81,16 @@
         </v-col>
     </v-row>
 
-    <div class="my-2">
-            <v-btn @click="saveadd_product" :class="{ grey: !valid, green: valid }">Add Product</v-btn>
-    </div>
-    <div class="my-2">
-            <v-btn @click="clear" :class="{ Gray: valid }">Clear</v-btn>
-    </div>
+    <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveadd_product" dark>Add Product
+        <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+      </v-btn>
+      <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
+        <v-icon dark right>mdi-cancel</v-icon>
+      </v-btn>
+      <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
+        <v-icon dark right>mdi-logout</v-icon>
+      </v-btn>
+    
     
   </v-container>
 </template>
@@ -105,11 +110,24 @@ export default {
       },
       employees: [],
       brands: [],
-      type_products: [] 
+      type_products: [],
+      emid: -99,
+      lock:false
       
     };
   },
   methods: {
+    lockemployee(){
+      this.emid = this.$route.params.em;
+      this.add_product.employeeId  = this.emid;
+      this.lock = true;
+    },
+    /*back(){
+      this.$router.push({name: 'Dashboard' , params: {em: this.emid} }); 
+    },*/
+    Logout(){
+      this.$router.push("/")
+    },
     /* eslint-disable no-console */
     getEmployee() {
       http
@@ -148,13 +166,12 @@ export default {
     // function เมื่อกดปุ่มบันทึกข้อมูล
     saveadd_product() {
       if (
-        !this.add_product.employeeId ||
         !this.add_product.brandId ||
         !this.add_product.type_productId ||
         !this.add_product.quantity ||
         !this.add_product.price
       ) {
-        alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
+        alert("กรุณากรอกข้อมูลให้ครบ!");
       } else {
         http
           .post(
@@ -171,7 +188,7 @@ export default {
             this.add_product
           )
           .then(response => {
-            alert("Succeed");
+            alert("ทำรายการเสร็จสิ้น");
             console.log(response);
           })
           .catch(e => {
@@ -200,6 +217,7 @@ export default {
     this.getEmployee();
     this.getBrand();
     this.getType_Product();
+    this.lockemployee();
   }
 };
 </script>
