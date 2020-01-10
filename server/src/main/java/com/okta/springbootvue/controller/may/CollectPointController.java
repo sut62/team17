@@ -48,6 +48,11 @@ public class CollectPointController {
     public Collection<CollectPoint> CollectPoints() {
         return collectPointRepository.findAll().stream().collect(Collectors.toList());
     }
+
+    @GetMapping("/collectPoint/{payment}")
+    public CollectPoint getCollectByPayment(@PathVariable long payment) {
+        return collectPointRepository.findCollectByPayment(paymentRepository.findById(payment));
+    }
     
     @PostMapping("/collectPoint/{em_id}/{reg_id}/{po_id}/{pay_id}/{point}")
     public CollectPoint newCollectPoint(CollectPoint newCollectPoint,
