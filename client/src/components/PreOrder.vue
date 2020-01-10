@@ -2,18 +2,23 @@
 <template>
   <v-container>
     
-      <v-card color="#E6BFDB">
+      <v-card color="teal lighten-5">
         <v-col></v-col>
+          <h1 class="text mt-5 pt-5"
+            style="text-align: center;
+            font: 40px BankGothic Md BT, sans-serif;
+            width: 100%;"><strong>PRE-ORDER</strong></h1>
+          <v-col></v-col>
+
         <v-row justify="center">
       <v-col cols="2" sm="5">
         <v-select
+          :readonly="true"
+          v-model="Pre_Order.employeeId"
           :items="employees"
-          item-text="name"
-          item-value="id"
-          :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
-          required
-          v-model="Pre_Order.employeeID"
           label="Employee"
+          item-text="username"
+          item-value="id"
           outlined
         ></v-select>
         </v-col>
@@ -23,11 +28,11 @@
        <v-col class="" cols="6" sm="3">
         <v-select
           :items="titlenames"
-          item-text="name"
+          item-text="title"
           item-value="id"
           :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
           required
-          v-model="Pre_Order.titlenameID"
+          v-model="Pre_Order.titleID"
           label="Title Name"
           outlined
         ></v-select>
@@ -107,6 +112,10 @@
             <v-btn rounded style="margin: 10px; background-color: #E53935" @click = "Clear" dark>clear
               <v-icon dark right>mdi-cancel</v-icon>
             </v-btn>
+            
+            <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
+              <v-icon dark right>mdi-logout</v-icon>
+            </v-btn>
          </div>
         
   </v-row>
@@ -125,28 +134,38 @@ export default {
   data() {
     return {
       Pre_Order: {
-        employeeID: "",
-        titlenameID: "",
+        employeeId: "",
+        titleID: "",
         cus_name: "",
         tel: "",
         brandID: "",
         type_productID: "",
         quantityID: ""
       },
-      valid : false,
         employees: [],
         titlenames: [],
         brands: [],
         type_products: [],
-        quantitys: []
+        quantitys: [],
+        valid : false,
+        emid: -99,
+        lock:false
     };
   },
   methods: {
+    lockemployee(){
+      this.emid = this.$route.params.em;
+      this.Pre_Order.employeeId  = this.emid;
+      this.lock = true;
+    },
+    Logout(){
+      this.$router.push("/")
+    },
     /* eslint-disable no-console */
-
+    
     getEmployees() {
       http
-        .get("/employee")
+        .get("/Employee")
         .then(response => {
           this.employees = response.data;
           console.log(response.data);
@@ -207,7 +226,6 @@ export default {
     // function เมื่อกดปุ่ม ยืนยัน
     savePre_Order(){
       if (
-        !this.Pre_Order.employeeID ||
         !this.Pre_Order.titlenameID ||
         !this.Pre_Order.cus_name ||
         !this.Pre_Order.tel ||
@@ -221,7 +239,7 @@ export default {
       http
         .post(
           "/pre_order/" +
-            this.Pre_Order.employeeID +
+            this.Pre_Order.employeeId +
             "/" +
             this.Pre_Order.titlenameID +
             "/" +
@@ -261,6 +279,7 @@ export default {
     this.getBrands();
     this.getType_Products();
     this.getQuantitys();
+    this.lockemployee();
     }
    
    /* eslint-enable no-console */
@@ -271,6 +290,7 @@ export default {
     this.getBrands();
     this.getType_Products();
     this.getQuantitys();
+    this.lockemployee();
   }
 }
 </script>
