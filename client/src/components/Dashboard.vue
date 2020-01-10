@@ -8,16 +8,16 @@
             <v-btn @click="Register" class="cyan lighten-1 white--text">Register</v-btn>
         </v-row>
         <p></p>
-        <v-row justify="center">
-            <v-btn @click="CollectPoint" class="cyan lighten-1 white--text">Collect Point</v-btn>
-        </v-row>
-        <p></p>
         <!--v-row justify="center">
             <v-btn @click="AddProduct" class="cyan lighten-1 white--text">Add Product</v-btn>
         </v-row>
         <p></p>
         <v-row justify="center">
             <v-btn @click="Payment" class="cyan lighten-1 white--text">Payment</v-btn>
+        </v-row>
+        <p></p>
+        <v-row justify="center">
+            <v-btn @click="CollectPoint" class="cyan lighten-1 white--text">Collect Point</v-btn>
         </v-row>
         <p></p>
         <v-row justify="center">
@@ -37,7 +37,7 @@
 export default {
     data(){
         return{
-            emid:-99
+            id:-99
         };
     },
     methods: {
@@ -51,16 +51,15 @@ export default {
         Register(){
             this.$router.push({name: 'Register', params: {em: this.emid} });
         },
-        CollectPoint(){
-            this.$router.push({name: 'CollectPoint', params: {em: this.emid} });
-        },
         /*AddProduct(){
             this.$router.push({name: 'AddProduct', params: {em: this.emid} });
         },
         Payment(){
             this.$router.push({name: 'Payment', params: {em: this.emid} });
         },
-        
+        CollectPoint(){
+            this.$router.push({name: 'CollectPoint', params: {em: this.emid} });
+        },
         Pre_Order(){
             this.$router.push({name: 'Pre_Order', params: {em: this.emid} })
         }*/
