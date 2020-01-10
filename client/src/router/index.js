@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Login from '../components/Login'
 import Dashboard from '../components/Dashboard'
 import Employee from '../components/Employee'
+import PreOrder from '../components/PreOrder'
+import AddProduct from '../components/AddProduct'
 import Register from '../components/Register'
 import CollectPoint from '../components/CollectPoint'
 
@@ -31,6 +33,16 @@ export default new Router({
       path: '/Register',
       name:'Register',
       component: Register
+    },
+    {
+      path: '/PreOrder',
+      name:'PreOrder',
+      component: PreOrder
+    },
+    {
+      path: '/AddProduct',
+      name:'AddProduct',
+      component: AddProduct
     },
     {
       path: '/CollectPoint',
