@@ -6,6 +6,7 @@
         <p>Employee</p>
 
         <v-overflow-btn
+          :readonly="true"
           class="my-2"
           v-model="collectPoint.employeeId"
           :items="employees"
@@ -102,7 +103,7 @@
 
 <script>
 
-import http from "../Api";
+import http from "../http-common";
 
 export default {
   name: "collectPoint",
@@ -125,7 +126,9 @@ export default {
       payments:[],
       paymentcus:[],
       collectPoints:[],
-      pointprices:[]
+      pointprices:[],
+      emid: -99,
+      lock:false
 
     };
 
@@ -134,7 +137,14 @@ export default {
   methods: {
 
     /* eslint-disable no-console */
-
+     lockemployee(){
+      this.emid = this.$route.params.em;
+      this.collectPoint.employeeId  = this.emid;
+      this.lock = true;
+    },
+    Logout(){
+      this.$router.push("/")
+    },
     getEmployees() {
       http
         .get("/Employee")
@@ -176,14 +186,28 @@ export default {
 
     getPaymentcus() {
           this.paymentcus = ["ไม่มีข้อมูล"];
-          let y = 0;
-          this.Cost = null ;
-         for (let j in this.payments) {
-         if (this.payments[j].register.id == this.collectPoint.registerId) {   
-          this.paymentcus[y] = this.payments[j];
-          y++; 
+          let l = 0;
+          this.Cost = null ;         
+         for (let j in this.payments) {           
+          if (this.payments[j].register.id == this.collectPoint.registerId ){ 
+            this.paymentcus[l] = this.payments[j];
+            l++; 
           }
-        }
+         } 
+         for (let i in this.paymentcus) {
+          if( this.paymentcus[i] != "ไม่มีข้อมูล"){
+            http
+              .get("/collectPoint/" + this.paymentcus[i].id)
+              .then(response => {
+                if(response.data != ""){
+                  this.paymentcus[i].id = "ไม่มีข้อมูล";
+                 }
+              })
+            .catch(e => {
+              console.log(e);
+            });
+         }
+       }   
     },
 
     getPointPrices() {
@@ -202,20 +226,28 @@ export default {
     findPayment() {
             this.collectPoint.pointPriceId = "";
             this.collectPoint.tpoint = "";
-            this.Cost = "" ;
-            if(this.paymentcus != "ไม่มีข้อมูล"){
-            this.Cost = this.payments[this.collectPoint.paymentId-1].cost;
-            }
+            this.Cost =  "ไม่มีข้อมูล" ;
+            this.Cost = this.payments[this.collectPoint.paymentId-1].price;
     },
 
     calPoint(){
-        this.collectPoint.tpoint = "";
-        let pr = this.payments[this.collectPoint.paymentId-1].cost;
+        this.collectPoint.tpoint = "ไม่มีข้อมูล";
+        let pr = this.payments[this.collectPoint.paymentId-1].price;
         let p = this.pointprices[this.collectPoint.pointPriceId-1].type;
         this.collectPoint.tpoint = parseInt(pr / p);
     },
 
     saveCollectPoint() {
+      if(this.collectPoint.employeeId == ""||
+      this.collectPoint.registerId == ""||
+      this.collectPoint.paymentId == ""||
+      this.collectPoint.pointPriceId == ""||
+      this.collectPoint.tpoint == ""||
+      this.collectPoint.paymentId == "ไม่มีข้อมูล"||
+      this.collectPoint.tpoint == "ไม่มีข้อมูล"){
+        alert("Please Select All !!");
+        this.clear();}
+      else{
       http
         .post(
           "/collectPoint/" +
@@ -237,8 +269,10 @@ export default {
         })
         .catch(e => {
           console.log(e);
-          this.submitted = false;
+
         });
+      }
+        
       this.submitted = true;
     },
     clear() {
@@ -255,7 +289,7 @@ export default {
       this.getPayments();
       this.getPointPrices();
       this.getPaymentcus();
-      //this.getCollectpoints();
+      this.lockemployee();
     }
 
     /* eslint-enable no-console */
@@ -267,7 +301,7 @@ export default {
       this.getPayments();
       this.getPointPrices();
       this.getPaymentcus();
-      //this.getCollectpoints();
+      this.lockemployee();
   }
 
 };
