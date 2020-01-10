@@ -4,6 +4,9 @@ import com.okta.springbootvue.entity.oil.*;
 import com.okta.springbootvue.repository.oil.*;
 import com.okta.springbootvue.entity.ta.*;
 import com.okta.springbootvue.repository.ta.*;
+import com.okta.springbootvue.entity.apple.*;
+import com.okta.springbootvue.repository.apple.*;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.ApplicationRunner;
@@ -20,7 +23,7 @@ public class SpringBootVueApplication {
 
     // Bootstrap some test data into the in-memory database
     @Bean  
-    ApplicationRunner init(EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository, VacancyRepository vacancyRepository,
+    ApplicationRunner init(QuantityRepository quantityRepository, EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository, VacancyRepository vacancyRepository,
     TitleNameRepository titlenameRepository) {  
         return args -> {  
             Stream.of("Male", "Female").forEach(gender -> {
@@ -33,6 +36,12 @@ public class SpringBootVueApplication {
                 Type t = new Type();
                 t.setType(type);
                 typeRepository.save(t);
+            });
+
+            Stream.of(1,2,3,4,5).forEach(quantity -> {
+                Quantity q = new Quantity();
+                q.setQuantity(quantity);
+                quantityRepository.save(q);
             });
 
             Stream.of("Manager", "Employee").forEach(vacancy -> {
@@ -65,6 +74,7 @@ public class SpringBootVueApplication {
             typeRepository.findAll().forEach(System.out::println);
             vacancyRepository.findAll().forEach(System.out::println); 
             titlenameRepository.findAll().forEach(System.out::println);
+            quantityRepository.findAll().forEach(System.out::println);
         };  
     }  
  
