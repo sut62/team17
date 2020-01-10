@@ -14,8 +14,9 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import java.time.LocalDateTime;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class RegisterController {
 
@@ -50,14 +51,17 @@ public class RegisterController {
     Employee employee = employeeRepository.findById(employee_id);
     TitleName titlename = titlenameRepository.findById(titlename_id);
     Gender gender = genderRepository.findById(gender_id);
+    LocalDateTime now = LocalDateTime.now();
 
+    newRegister.setDate(now);
     newRegister.setEmployee(employee);
     newRegister.setTitlename(titlename);
     newRegister.setName(name);
     newRegister.setLname(lname);
+    newRegister.setGender(gender);
     newRegister.setAddress(address);
     newRegister.setTel(tel);
-    newRegister.setGender(gender);
+    
 
     return registerRepository.save(newRegister); //บันทึก Objcet ชื่อ Register
     
