@@ -19,11 +19,11 @@
         <v-row justify="center">
             <v-btn @click="CollectPoint" class="cyan lighten-1 white--text">Collect Point</v-btn>
         </v-row>
-        <p></p>
+        <p></p-->
         <v-row justify="center">
             <v-btn @click="Pre_Order" class="cyan lighten-1 white--text">Pre Order</v-btn>
         </v-row>
-        <p></p!-->
+        <p></p>
         <v-row justify="center">
             <v-btn @click="Logout" class="red white--text">Logout</v-btn>
         </v-row>
@@ -59,10 +59,10 @@ export default {
         },
         CollectPoint(){
             this.$router.push({name: 'CollectPoint', params: {em: this.emid} });
-        },
+        },*/
         Pre_Order(){
-            this.$router.push({name: 'Pre_Order', params: {em: this.emid} })
-        }*/
+            this.$router.push({name: 'PreOrder', params: {em: this.emid} })
+        }
     },
     mounted(){
         this.getLockId();
