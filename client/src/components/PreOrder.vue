@@ -22,13 +22,13 @@
     <v-row justify="center">
        <v-col class="" cols="6" sm="3">
         <v-select
-          :items="title_names"
+          :items="titlenames"
           item-text="name"
           item-value="id"
           :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
           required
-          v-model="Pre_Order.title_nameID"
-          label="Title"
+          v-model="Pre_Order.titlenameID"
+          label="Title Name"
           outlined
         ></v-select>
         </v-col>
@@ -84,12 +84,12 @@
 
         <v-col cols="2" sm="3">
         <v-select
-          :items="numbers"
-          item-text="num"
+          :items="quantitys"
+          item-text="quantity"
           item-value="id"
           :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
           required
-          v-model="Pre_Order.numberID"
+          v-model="Pre_Order.quantityID"
           label="Quantity"
           outlined
         ></v-select>
@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import http from "../http-common";
+import http from "../Api";
 
 export default {
   name: "Pre_Order",
@@ -126,19 +126,19 @@ export default {
     return {
       Pre_Order: {
         employeeID: "",
-        title_nameID: "",
+        titlenameID: "",
         cus_name: "",
         tel: "",
         brandID: "",
         type_productID: "",
-        numberID: ""
+        quantityID: ""
       },
       valid : false,
         employees: [],
-        title_names: [],
+        titlenames: [],
         brands: [],
         type_products: [],
-        numbers: []
+        quantitys: []
     };
   },
   methods: {
@@ -156,11 +156,11 @@ export default {
         });
     },
 
-    getTitle_Names() {
+    getTitleNames() {
       http
-        .get("/title_name")
+        .get("/titlename")
         .then(response => {
-          this.title_names = response.data;
+          this.titlenames = response.data;
           console.log(response.data);
         })
         .catch(e => {
@@ -192,11 +192,11 @@ export default {
         });
     },
     
-    getNumbers() {
+    getQuantitys() {
       http
-        .get("/number")
+        .get("/quantity")
         .then(response => {
-          this.numbers = response.data;
+          this.quantitys = response.data;
           console.log(response.data);
         })
         .catch(e => {
@@ -205,13 +205,25 @@ export default {
     },
     
     // function เมื่อกดปุ่ม ยืนยัน
-    savePre_Order() {
+    savePre_Order(){
+      if (
+        !this.Pre_Order.employeeID ||
+        !this.Pre_Order.titlenameID ||
+        !this.Pre_Order.cus_name ||
+        !this.Pre_Order.tel ||
+        !this.Pre_Order.brandID ||
+        !this.Pre_Order.type_productID ||
+        !this.Pre_Order.quantityID
+      ) {
+        alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
+      }
+        else {
       http
         .post(
           "/pre_order/" +
             this.Pre_Order.employeeID +
             "/" +
-            this.Pre_Order.title_nameID +
+            this.Pre_Order.titlenameID +
             "/" +
             this.Pre_Order.cus_name +
             "/" +
@@ -221,42 +233,44 @@ export default {
             "/" +
             this.Pre_Order.type_productID +
             "/" +
-            this.Pre_Order.numberID,
+            this.Pre_Order.quantityID,
           this.Pre_Order
         )
         .then(response => {
+          alert("บันทึกข้อมูลสำเร็จ!");
           console.log(response);
         })
         .catch(e => {
           console.log(e);
         });
       this.submitted = true;
+    }
     },
     Clear(){
-            this.Pre_Order.title_nameID = null;
+            this.Pre_Order.titlenameID = null;
             this.Pre_Order.cus_name = null;
             this.Pre_Order.tel = null;
             this.Pre_Order.brandID = null;
             this.Pre_Order.type_productID = null;
-            this.Pre_Order.numberID = null;
+            this.Pre_Order.quantityID = null;
     },
     
     refreshList() {
     this.getEmployees();
-    this.getTitle_Names();
+    this.getTitleNames();
     this.getBrands();
     this.getType_Products();
-    this.getNumbers();
+    this.getQuantitys();
     }
    
    /* eslint-enable no-console */
   },
   mounted() {
     this.getEmployees();
-    this.getTitle_Names();
+    this.getTitleNames();
     this.getBrands();
     this.getType_Products();
-    this.getNumbers();
+    this.getQuantitys();
   }
 }
 </script>

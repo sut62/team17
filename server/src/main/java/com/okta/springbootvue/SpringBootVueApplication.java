@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class SpringBootVueApplication {  
   
     public static void main(String[] args) {  
-      SpringApplication.run(SpringBootVueApplication.class, args);  
+      SpringApplication.run(SpringBootVueApplication.class, args)  
     }  
 
     // Bootstrap some test data into the in-memory database
