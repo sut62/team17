@@ -88,16 +88,13 @@
         </v-col>
 
         <v-col cols="2" sm="3">
-        <v-select
-          :items="quantitys"
-          item-text="quantity"
-          item-value="id"
-          :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
-          required
-          v-model="Pre_Order.quantityID"
-          label="Quantity"
-          outlined
-        ></v-select>
+        <v-text-field
+            :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
+            required
+            v-model="Pre_Order.quantity"
+            label="Quantity"
+            outlined
+          ></v-text-field>
         </v-col>
   </v-row>
     <v-col></v-col>
@@ -140,13 +137,12 @@ export default {
         tel: "",
         brandID: "",
         type_productID: "",
-        quantityID: ""
+        quantity: ""
       },
         employees: [],
         titlenames: [],
         brands: [],
         type_products: [],
-        quantitys: [],
         valid : false,
         emid: -99,
         lock:false
@@ -211,27 +207,15 @@ export default {
         });
     },
     
-    getQuantitys() {
-      http
-        .get("/quantity")
-        .then(response => {
-          this.quantitys = response.data;
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    
     // function เมื่อกดปุ่ม ยืนยัน
     savePre_Order(){
       if (
-        !this.Pre_Order.titlenameID ||
+        !this.Pre_Order.titleID ||
         !this.Pre_Order.cus_name ||
         !this.Pre_Order.tel ||
         !this.Pre_Order.brandID ||
         !this.Pre_Order.type_productID ||
-        !this.Pre_Order.quantityID
+        !this.Pre_Order.quantity
       ) {
         alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
       }
@@ -241,7 +225,7 @@ export default {
           "/pre_order/" +
             this.Pre_Order.employeeId +
             "/" +
-            this.Pre_Order.titlenameID +
+            this.Pre_Order.titleID +
             "/" +
             this.Pre_Order.cus_name +
             "/" +
@@ -251,12 +235,13 @@ export default {
             "/" +
             this.Pre_Order.type_productID +
             "/" +
-            this.Pre_Order.quantityID,
+            this.Pre_Order.quantity,
           this.Pre_Order
         )
         .then(response => {
           alert("บันทึกข้อมูลสำเร็จ!");
           console.log(response);
+          this.Clear();
         })
         .catch(e => {
           console.log(e);
@@ -265,12 +250,12 @@ export default {
     }
     },
     Clear(){
-            this.Pre_Order.titlenameID = null;
+            this.Pre_Order.titleID = null;
             this.Pre_Order.cus_name = null;
             this.Pre_Order.tel = null;
             this.Pre_Order.brandID = null;
             this.Pre_Order.type_productID = null;
-            this.Pre_Order.quantityID = null;
+            this.Pre_Order.quantity = null;
     },
     
     refreshList() {
@@ -278,7 +263,6 @@ export default {
     this.getTitleNames();
     this.getBrands();
     this.getType_Products();
-    this.getQuantitys();
     this.lockemployee();
     }
    
@@ -289,7 +273,6 @@ export default {
     this.getTitleNames();
     this.getBrands();
     this.getType_Products();
-    this.getQuantitys();
     this.lockemployee();
   }
 }
