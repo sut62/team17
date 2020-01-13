@@ -88,12 +88,13 @@
         </v-col>
 
         <v-col cols="2" sm="3">
-        <v-text-field
+        <v-text-field 
             :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
             required
+            input type="Number"
             v-model="Pre_Order.quantity"
             label="Quantity"
-            outlined
+            min=1 max=10  
           ></v-text-field>
         </v-col>
   </v-row>
