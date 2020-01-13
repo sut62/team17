@@ -27,8 +27,9 @@ public class SpringBootVueApplication {
 
     // Bootstrap some test data into the in-memory database
     @Bean  
-    ApplicationRunner init(PointPriceRepository pointPriceRepository, CollectPointRepository collectPointRepository,QuantityRepository quantityRepository, EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository, VacancyRepository vacancyRepository,
-    TitleNameRepository titlenameRepository) {  
+    ApplicationRunner init(PointPriceRepository pointPriceRepository, CollectPointRepository collectPointRepository,
+    EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository,
+    VacancyRepository vacancyRepository, TitleNameRepository titlenameRepository) {  
         return args -> {  
             Stream.of("Male", "Female").forEach(gender -> {
                 Gender g = new Gender();
@@ -46,12 +47,6 @@ public class SpringBootVueApplication {
                 PointPrice p = new PointPrice();
                 p.setType(type);
                 pointPriceRepository.save(p);
-            });
-
-            Stream.of(1,2,3,4,5).forEach(quantity -> {
-                Quantity q = new Quantity();
-                q.setQuantity(quantity);
-                quantityRepository.save(q);
             });
 
             Stream.of("Manager", "Employee").forEach(vacancy -> {
@@ -95,7 +90,6 @@ Stream.of("L’OREAL", "OLAY", "Maybelline", "AVON","Srichand").forEach(name -> 
             typeRepository.findAll().forEach(System.out::println);
             vacancyRepository.findAll().forEach(System.out::println); 
             titlenameRepository.findAll().forEach(System.out::println);
-            quantityRepository.findAll().forEach(System.out::println);
             brandRepository.findAll().forEach(System.out::println); 
             type_productRepository.findAll().forEach(System.out::println);
         };  

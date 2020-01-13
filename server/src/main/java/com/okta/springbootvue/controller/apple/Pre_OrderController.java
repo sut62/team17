@@ -40,8 +40,6 @@ public class Pre_OrderController {
     private Type_ProductRepository type_productRepository;
     @Autowired
     private TitleNameRepository titlenameRepository;
-    @Autowired
-    private QuantityRepository quantityRepository;
 
     Pre_OrderController(Pre_OrderRepository pre_orderRepository) {
         this.pre_orderRepository = pre_orderRepository;
@@ -52,7 +50,7 @@ public class Pre_OrderController {
         return pre_orderRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/pre_order/{employeeID}/{titlenameID}/{cus_name}/{tel}/{brandID}/{type_productID}/{quantityID}")
+    @PostMapping("/pre_order/{employeeID}/{titlenameID}/{cus_name}/{tel}/{brandID}/{type_productID}/{quantity}")
     public Pre_Order newPreOrder (Pre_Order newPreOrder,
     @PathVariable long employeeID,
     @PathVariable long titlenameID,
@@ -60,12 +58,11 @@ public class Pre_OrderController {
     @PathVariable String tel,
     @PathVariable long brandID,
     @PathVariable long type_productID,
-    @PathVariable long quantityID) {
+    @PathVariable int quantity) {
 
     TitleName titlename = titlenameRepository.findById(titlenameID);
     Brand brand = brandRepository.findById(brandID);
     Type_Product type_product = type_productRepository.findById(type_productID);
-    Quantity quantity = quantityRepository.findById(quantityID);
     Employee employee = employeeRepository.findById(employeeID);
     LocalDateTime now = LocalDateTime.now();
 
