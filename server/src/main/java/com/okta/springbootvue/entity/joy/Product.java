@@ -10,13 +10,13 @@ import com.okta.springbootvue.entity.oil.*;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="Add_PRODUCT")
-public class Add_Product {
+@Table(name="PRODUCT")
+public class Product {
 
     @Id
-    @SequenceGenerator(name="Add_Product_seq",sequenceName="Add_Product_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Add_Product_seq")
-    @Column(name = "Add_Product_ID", unique = true, nullable = true)
+    @SequenceGenerator(name="Product_seq",sequenceName="Product_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Product_seq")
+    @Column(name = "Product_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
     @Column(name="QUANTITY")

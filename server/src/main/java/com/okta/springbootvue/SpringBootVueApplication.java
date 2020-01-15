@@ -29,7 +29,7 @@ public class SpringBootVueApplication {
     @Bean  
     ApplicationRunner init(PointPriceRepository pointPriceRepository, CollectPointRepository collectPointRepository,
     EmployeeRepository employeeRepository, GenderRepository genderRepository, TypeRepository typeRepository,
-    VacancyRepository vacancyRepository, TitleNameRepository titlenameRepository) {  
+    VacancyRepository vacancyRepository, TitleNameRepository titlenameRepository,BrandRepository brandRepository, Type_ProductRepository type_productRepository) {  
         return args -> {  
             Stream.of("Male", "Female").forEach(gender -> {
                 Gender g = new Gender();

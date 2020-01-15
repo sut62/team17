@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-public class Add_ProductController {
+public class ProductController {
     @Autowired
-    private final Add_ProductRepository add_productRepository;
+    private final ProductRepository productRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
@@ -35,17 +35,17 @@ public class Add_ProductController {
     private Type_ProductRepository type_productRepository;
     
 
-    Add_ProductController(Add_ProductRepository add_productRepository) {
-        this.add_productRepository = add_productRepository;
+    ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
     
-    @GetMapping("/add_product")
-    public Collection<Add_Product> Add_Products() {
-        return add_productRepository.findAll().stream().collect(Collectors.toList());
+    @GetMapping("/product")
+    public Collection<Product> Products() {
+        return productRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/add_product/{employee_id}/{brand_id}/{type_product_id}/{quantity}/{price}")
-    public Add_Product newAdd_Product(Add_Product newAdd_Product,
+    @PostMapping("/product/{employee_id}/{brand_id}/{type_product_id}/{quantity}/{price}")
+    public Product newProduct(Product newProduct,
     @PathVariable long employee_id, 
     @PathVariable long brand_id,
     @PathVariable long type_product_id,
@@ -58,14 +58,14 @@ public class Add_ProductController {
     Type_Product type_product = type_productRepository.findById(type_product_id);
     LocalDateTime now = LocalDateTime.now(); 
 
-    newAdd_Product.setEmployee(employee);
-    newAdd_Product.setBrand(brand);
-    newAdd_Product.setType_product(type_product);
-    newAdd_Product.setQuantity(quantity);
-    newAdd_Product.setPrice(price);
-    newAdd_Product.setDate(now);
+    newProduct.setEmployee(employee);
+    newProduct.setBrand(brand);
+    newProduct.setType_product(type_product);
+    newProduct.setQuantity(quantity);
+    newProduct.setPrice(price);
+    newProduct.setDate(now);
 
-    return add_productRepository.save(newAdd_Product); //บันทึก Objcet ชื่อ VideoRental
+    return productRepository.save(newProduct); //บันทึก Objcet ชื่อ VideoRental
     
     }
 }
