@@ -24,18 +24,16 @@ import java.net.URLDecoder;
 import java.time.LocalDateTime;
 
 import com.okta.springbootvue.entity.parn.Payment;
-import com.okta.springbootvue.entity.parn.Employee;
+import com.okta.springbootvue.entity.oil.Employee;
 import com.okta.springbootvue.entity.parn.PaymentType;
-import com.okta.springbootvue.entity.parn.Product;
-import com.okta.springbootvue.entity.parn.Register;
-import com.okta.springbootvue.entity.parn.Add_Product;
+import com.okta.springbootvue.entity.ta.Register;
+import com.okta.springbootvue.entity.joy.Product;
 
 import com.okta.springbootvue.repository.parn.PaymentRepository;
-import com.okta.springbootvue.repository.parn.EmployeeRepository;
+import com.okta.springbootvue.repository.oil.EmployeeRepository;
 import com.okta.springbootvue.repository.parn.PaymentTypeRepository;
-import com.okta.springbootvue.repository.parn.ProductRepository;
-import com.okta.springbootvue.repository.parn.RegisterRepository;
-import com.okta.springbootvue.repository.parn.Add_ProductRepository;
+import com.okta.springbootvue.repository.ta.RegisterRepository;
+import com.okta.springbootvue.repository.joy.ProductRepository;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -51,17 +49,14 @@ public class PaymentController {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private Add_ProductRepository add_ProductRepository;
-    @Autowired
     private RegisterRepository registerRepository;
 
-    public PaymentController( PaymentRepository paymentRepository, EmployeeRepository employeeRepository, PaymentTypeRepository paymentTypeRepository,
-    ProductRepository productRepository, Add_ProductRepository add_ProductRepository, RegisterRepository registerRepository) {
+    public PaymentController( PaymentRepository paymentRepository, EmployeeRepository employeeRepository, PaymentTypeRepository paymentTypeRepository, 
+    	ProductRepository productRepository, RegisterRepository registerRepository) {
         this.paymentRepository = paymentRepository;
         this.employeeRepository = employeeRepository;
         this.paymentTypeRepository = paymentTypeRepository;
         this.productRepository = productRepository;
-        this.add_ProductRepository = add_ProductRepository;
         this.registerRepository = registerRepository;
     }
 
@@ -70,7 +65,7 @@ public class PaymentController {
         return paymentRepository.findAll().stream().collect(Collectors.toList());
     } */
 
-    @PostMapping("/paymented")
+   /*@PostMapping("/paymented")
     public Payment index(@RequestBody BodyPayment bodyPayment){//newPayment(Payment newPayment,
         Payment pay = new Payment();
         Register member = registerRepository.findById(bodyPayment.getRegisterid()).get();
@@ -102,7 +97,7 @@ public class PaymentController {
             productRepository.save(p);
         }
         return paymentRepository.save(pay);
-     }
+     }*/
      @GetMapping("/payment")
      public Collection<Payment> Payment() {
          return paymentRepository.findAll().stream().collect(Collectors.toList());

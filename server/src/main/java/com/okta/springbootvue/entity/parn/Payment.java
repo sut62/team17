@@ -15,6 +15,8 @@ import javax.persistence.Table; */
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.okta.springbootvue.entity.ta.*;
+import com.okta.springbootvue.entity.oil.*;
 
 
 @Data
