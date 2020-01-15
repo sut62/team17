@@ -22,5 +22,5 @@ public class Type_Product {
 
     @OneToMany(fetch = FetchType.EAGER)
     // mappedBy  = "createdBy"
-    private Collection<Add_Product> add_product;
+    private Collection<Product> product;
 }

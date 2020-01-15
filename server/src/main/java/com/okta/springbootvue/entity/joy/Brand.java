@@ -20,5 +20,5 @@ public class Brand {
 
 	@OneToMany(fetch = FetchType.EAGER)
 	// mappedBy  = "rentCustomer"
-	private Collection<Add_Product> add_product;
+	private Collection<Product> product;
 }

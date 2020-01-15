@@ -7,8 +7,8 @@
         <v-select
           class="my-2"
           outlined
-          :readonly="true"
-          v-model="add_product.employeeId"
+          
+          v-model="product.employeeId"
           :items="employees"
           label="Employee"
           item-text="username"
@@ -26,7 +26,7 @@
         <v-select
           class="my-2"
           outlined
-          v-model="add_product.brandId"
+          v-model="product.brandId"
           :items="brands"
           label="Brand"
           item-text="name"
@@ -42,7 +42,7 @@
         <v-select
           class="my-2"
           outlined
-          v-model="add_product.type_productId"
+          v-model="product.type_productId"
           :items="type_products"
           label="Type Product"
           item-text="name"
@@ -56,12 +56,13 @@
     <v-row>
       <v-col cols="12" sm="4">
         <p>Quantity</p>
-
         <v-text-field
-            
+        
+            type="number"
+            :min = "50"
             solo
             outlined
-            v-model="add_product.quantity"
+            v-model="product.quantity"
             label="Quantity"
             :rules="[(v) => !!v || 'Item is required']"
             required
@@ -71,17 +72,21 @@
       <v-col cols="12" sm="4">
         <p>Price</p>
           <v-text-field
+          
+            type="number"
+            :min = "0"
             solo
             outlined
-            v-model="add_product.price"
+            v-model="product.price"
             label="Price"
             :rules="[(v) => !!v || 'Item is required']"
             required
+
           ></v-text-field>
         </v-col>
     </v-row>
 
-    <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveadd_product" dark>Add Product
+    <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveproduct" dark>Add Product
         <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
       </v-btn>
       <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
@@ -98,10 +103,10 @@
 <script>
 import http from "../Api";
 export default {
-  name: "add_product",
+  name: "product",
   data() {
     return {
-      add_product: {
+      product: {
         employeeId: "",
         brandId: "",
         type_productId: "",
@@ -164,28 +169,28 @@ export default {
     },
    
     // function เมื่อกดปุ่มบันทึกข้อมูล
-    saveadd_product() {
+    saveproduct() {
       if (
-        !this.add_product.brandId ||
-        !this.add_product.type_productId ||
-        !this.add_product.quantity ||
-        !this.add_product.price
+        !this.product.brandId ||
+        !this.product.type_productId ||
+        !this.product.quantity ||
+        !this.product.price
       ) {
         alert("กรุณากรอกข้อมูลให้ครบ!");
       } else {
         http
           .post(
-            "/add_product/" +
-              this.add_product.employeeId +
+            "/product/" +
+              this.product.employeeId +
               "/" +
-              this.add_product.brandId +
+              this.product.brandId +
               "/" +
-              this.add_product.type_productId +
+              this.product.type_productId +
               "/" +
-              this.add_product.quantity +
+              this.product.quantity +
               "/" +
-              this.add_product.price,
-            this.add_product
+              this.product.price,
+            this.product
           )
           .then(response => {
             alert("ทำรายการเสร็จสิ้น");
@@ -198,11 +203,11 @@ export default {
     },
     // function เมื่อกดปุ่มล้างข้อมูล
     clear() {
-      this.add_product.employeeId = null;
-      this.add_product.brandId = null;
-      this.add_product.type_productId = null;
-      this.add_product.quantity = null;
-      this.add_product.price = null;
+      this.product.employeeId = null;
+      this.product.brandId = null;
+      this.product.type_productId = null;
+      this.product.quantity = null;
+      this.product.price = null;
   },
     refreshList() {
     this.getEmployee();
