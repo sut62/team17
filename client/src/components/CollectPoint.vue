@@ -2,9 +2,13 @@
   <v-container>
     <v-card color="teal lighten-5">
     <v-row justify="center">
+      <h1 class="display-1 font-italic" style="margin: 15px ; color: rgb(205, 123, 147) ;"
+      >COLLECT POINT</h1>
+    </v-row>
+    <v-row justify="center">
+      
       <v-col cols="12" sm="4">
         <p>Employee</p>
-
         <v-overflow-btn
           :readonly="true"
           class="my-2"
@@ -86,16 +90,21 @@
     </v-row >
 
     <v-row justify="center">
-         <v-col cols="12" sm="4">
+         <v-col cols="10" sm="2">
             <v-btn @click="saveCollectPoint" color="green" dark>Collect
               <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
             </v-btn>
             </v-col>
-        <v-col cols="12" sm="4">
+        <v-col cols="10" sm="2">
              <v-btn @click="clear" color="red" dark>Decline
         <v-icon dark right>mdi-cancel</v-icon>
       </v-btn>
         </v-col>
+        <v-col cols="10" sm="2">
+        <v-btn style="background-color: #000000" @click="Logout" dark>LOG OUT
+        <v-icon dark right>mdi-logout</v-icon>
+      </v-btn>
+      </v-col>
     </v-row >
      </v-card>
   </v-container>
@@ -103,7 +112,7 @@
 
 <script>
 
-import http from "../http-common";
+import http from "../Api";
 
 export default {
   name: "collectPoint",
@@ -185,29 +194,42 @@ export default {
     },
 
     getPaymentcus() {
-          this.paymentcus = ["ไม่มีข้อมูล"];
+          this.collectPoint.pointPriceId = "";
+          this.collectPoint.tpoint = "";
+          this.paymentcus = [];
           let l = 0;
-          this.Cost = null ;         
+          this.Cost = null ;
+        if(this.collectPoint.registerId != null){        
          for (let j in this.payments) {           
-          if (this.payments[j].register.id == this.collectPoint.registerId ){ 
+          if (this.payments[j].member.id == this.collectPoint.registerId ){ 
             this.paymentcus[l] = this.payments[j];
             l++; 
           }
          } 
          for (let i in this.paymentcus) {
-          if( this.paymentcus[i] != "ไม่มีข้อมูล"){
+          if( this.paymentcus[i] != null){
             http
               .get("/collectPoint/" + this.paymentcus[i].id)
               .then(response => {
                 if(response.data != ""){
-                  this.paymentcus[i].id = "ไม่มีข้อมูล";
+                  this.paymentcus[i].id = "ทำรายการแล้ว";
                  }
+        let pay = [];
+        let k=0;
+        for(let n in this.paymentcus){
+          if(this.paymentcus[n].id != "ทำรายการแล้ว"){
+            pay[k] = this.paymentcus[n];
+            k++;
+          }
+        }
+        this.paymentcus = pay;
               })
             .catch(e => {
               console.log(e);
             });
          }
-       }   
+       } 
+        }  
     },
 
     getPointPrices() {
@@ -276,6 +298,7 @@ export default {
       this.submitted = true;
     },
     clear() {
+      this.paymentcus = [];
       this.collectPoint.registerId = "";
       this.collectPoint.paymentId = "";
       this.collectPoint.pointPriceId = "";
