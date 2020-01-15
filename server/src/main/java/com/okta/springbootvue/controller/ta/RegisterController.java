@@ -38,6 +38,11 @@ public class RegisterController {
         return registerRepository.findAll().stream().collect(Collectors.toList());
     }
 
+    @GetMapping("/register/{id}")
+    public Register getRegisterId(@PathVariable("id") Long id) {
+         return registerRepository.findById(id).get();
+    }
+
     @PostMapping("/register/{name}/{lname}/{address}/{tel}/{employee_id}/{titlename_id}/{gender_id}")
     public Register newRegister(Register newRegister,
     @PathVariable String name,

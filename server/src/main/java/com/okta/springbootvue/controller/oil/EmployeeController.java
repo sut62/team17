@@ -40,6 +40,10 @@ public class EmployeeController {
     public Collection<Employee> Employees() {
         return employeeRepository.findAll().stream().collect(Collectors.toList());
     }
+    @GetMapping("/employee/{id}")
+    public Employee getEmployeeId(@PathVariable("id") Long id) {
+         return employeeRepository.findById(id).get();
+    }
 
     @PostMapping("/Employee/{username}/{password}/{gender_id}/{type_id}/{vacancy_id}")
     public Employee newEmployee(Employee newEmployee,
