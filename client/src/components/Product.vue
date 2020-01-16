@@ -6,8 +6,8 @@
 
         <v-select
           class="my-2"
+          :readonly="true"
           outlined
-          
           v-model="product.employeeId"
           :items="employees"
           label="Employee"
@@ -59,7 +59,7 @@
         <v-text-field
         
             type="number"
-            :min = "50"
+            :min = "0"
             solo
             outlined
             v-model="product.quantity"
@@ -124,7 +124,7 @@ export default {
   methods: {
     lockemployee(){
       this.emid = this.$route.params.em;
-      this.add_product.employeeId  = this.emid;
+      this.product.employeeId  = this.emid;
       this.lock = true;
     },
     /*back(){
@@ -177,7 +177,9 @@ export default {
         !this.product.price
       ) {
         alert("กรุณากรอกข้อมูลให้ครบ!");
-      } else {
+      }else if(this.product.quantity<0||this.product.price<0){
+        alert("กรอกข้อมูลให้ถูกต้อง!");
+      }else {
         http
           .post(
             "/product/" +
