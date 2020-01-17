@@ -177,8 +177,6 @@ export default {
         !this.product.price
       ) {
         alert("กรุณากรอกข้อมูลให้ครบ!");
-      }else if(this.product.quantity<0||this.product.price<0){
-        alert("กรอกข้อมูลให้ถูกต้อง!");
       }else {
         http
           .post(
