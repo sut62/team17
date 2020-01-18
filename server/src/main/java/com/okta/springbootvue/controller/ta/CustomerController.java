@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-public class RegisterController {
+public class CustomerController {
 
     @Autowired
-    private final RegisterRepository registerRepository;
+    private final CustomerRepository customerRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
@@ -29,22 +29,17 @@ public class RegisterController {
     @Autowired
     private GenderRepository genderRepository;
 
-    RegisterController(RegisterRepository registerRepository) {
-        this.registerRepository = registerRepository;
+    CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
-    @GetMapping("/register")
-    public Collection<Register> Registers() {
-        return registerRepository.findAll().stream().collect(Collectors.toList());
+    @GetMapping("/customer")
+    public Collection<Customer> Customers() {
+        return customerRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @GetMapping("/register/{id}")
-    public Register getRegisterId(@PathVariable("id") Long id) {
-         return registerRepository.findById(id).get();
-    }
-
-    @PostMapping("/register/{name}/{lname}/{address}/{tel}/{employee_id}/{titlename_id}/{gender_id}")
-    public Register newRegister(Register newRegister,
+    @PostMapping("/customer/{name}/{lname}/{address}/{tel}/{employee_id}/{titlename_id}/{gender_id}")
+    public Customer newCustomer(Customer newCustomer,
     @PathVariable String name,
     @PathVariable String lname,
     @PathVariable String address,
@@ -58,17 +53,17 @@ public class RegisterController {
     Gender gender = genderRepository.findById(gender_id);
     LocalDateTime now = LocalDateTime.now();
 
-    newRegister.setDate(now);
-    newRegister.setEmployee(employee);
-    newRegister.setTitlename(titlename);
-    newRegister.setName(name);
-    newRegister.setLname(lname);
-    newRegister.setGender(gender);
-    newRegister.setAddress(address);
-    newRegister.setTel(tel);
+    newCustomer.setDate(now);
+    newCustomer.setEmployee(employee);
+    newCustomer.setTitlename(titlename);
+    newCustomer.setName(name);
+    newCustomer.setLname(lname);
+    newCustomer.setGender(gender);
+    newCustomer.setAddress(address);
+    newCustomer.setTel(tel);
     
 
-    return registerRepository.save(newRegister); //บันทึก Objcet ชื่อ Register
+    return customerRepository.save(newCustomer); //บันทึก Objcet ชื่อ Customer
     
     }
 }
