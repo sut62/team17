@@ -12,7 +12,7 @@
       <v-col cols="10" sm="4">
         <v-select
           :readonly="true"
-          v-model="register.employeeId"
+          v-model="customer.employeeId"
           :items="employees"
           label="Employee"
           item-text="username"
@@ -25,7 +25,7 @@
     <v-row justify="center">
       <v-col cols="3" sm="2">
         <v-select
-          v-model="register.titleId"
+          v-model="customer.titleId"
           :items="titlenames"
           label="Title Name"
           item-text="title"
@@ -39,7 +39,7 @@
       <v-col cols="3" sm="4">
           <v-text-field
             label="Name"
-            v-model="register.name"
+            v-model="customer.name"
             :rules="[(v) => !!v || '*กรุณาใส่ชื่อจริง']"
             required
             outlined
@@ -49,7 +49,7 @@
       <v-col cols="3" sm="4">
         <v-text-field
             label="Last Name"
-            v-model="register.lname"
+            v-model="customer.lname"
             :rules="[(v) => !!v || '*กรุณาใส่นามสกุล']"
             required
             outlined
@@ -60,7 +60,7 @@
     <v-row justify="center">
       <v-col cols="3" sm="2">
         <v-select
-          v-model="register.genderId"
+          v-model="customer.genderId"
           :items="genders"
           label="Gender"
           item-text="gender"
@@ -74,7 +74,7 @@
       <v-col cols="12" sm="12" md="8">
           <v-text-field
             label="Address"
-            v-model="register.address"
+            v-model="customer.address"
             :rules="[(v) => !!v || '*กรุณาใส่ที่อยู่ปัจจุบัน']"
             required
             outlined
@@ -86,7 +86,7 @@
       <v-col cols="12" sm="10" md="4">
           <v-text-field
             label="Tel"
-            v-model="register.tel"
+            v-model="customer.tel"
             :rules="[(v) => !!v || '*กรุณาใสเบอร์โทรศัพท์']"
             required
             outlined
@@ -95,7 +95,7 @@
     </v-row>
     
     <v-row justify="center">
-      <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveRegister" dark>REGISTER
+      <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveCustomer" dark>REGISTER
         <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
       </v-btn>
       <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
@@ -113,10 +113,10 @@
 import http from "../Api";
 
 export default {
-  name: "register",
+  name: "customer",
   data() {
     return {
-      register: {
+      customer: {
         name: "",
         lname: "",
         address: "",
@@ -138,7 +138,7 @@ export default {
   methods: {
     lockemployee(){
       this.emid = this.$route.params.em;
-      this.register.employeeId  = this.emid;
+      this.customer.employeeId  = this.emid;
       this.lock = true;
     },
     /*back(){
@@ -185,24 +185,35 @@ export default {
     },
 
     // function เมื่อกดปุ่มบันทึกข้อมูล
-    saveRegister() {
+    saveCustomer() {
+      if (
+        !this.customer.name ||
+        !this.customer.lname ||
+        !this.customer.address ||
+        !this.customer.tel ||
+        !this.customer.titleId ||
+        !this.customer.genderId
+      ) {
+        alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
+        this.clear();
+      } else {
         http
           .post(
-          "/register/"+
-            this.register.name +
+          "/customer/"+
+            this.customer.name +
             "/" +
-            this.register.lname +
+            this.customer.lname +
             "/" +
-            this.register.address +
+            this.customer.address +
             "/" +
-            this.register.tel +
+            this.customer.tel +
             "/" +
-            this.register.employeeId +
+            this.customer.employeeId +
             "/" +
-            this.register.titleId +
+            this.customer.titleId +
             "/" +
-            this.register.genderId,
-          this.register
+            this.customer.genderId,
+          this.customer
        )
           .then(response => {
             alert("บันทึกข้อมูลสำเร็จ!");
@@ -210,19 +221,26 @@ export default {
           })
           .catch(e => {
             console.log(e);
-            alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
           });
+    }
     },
     
     clear() {
       //this.$refs.form.reset();
-      this.register.genderId = null;
-      this.register.titleId = null;
-      this.register.name = null;
-      this.register.lname = null;
-      this.register.tel = null;
-      this.register.address = null;
+      this.customer.genderId = null;
+      this.customer.titleId = null;
+      this.customer.name = null;
+      this.customer.lname = null;
+      this.customer.tel = null;
+      this.customer.address = null;
+    },
+    refreshList() {
+    this.getEmployees();
+    this.getTitleNames();
+    this.getGenders();
     }
+   
+   /* eslint-enable no-console */
   },
   mounted() {
     this.getEmployees();

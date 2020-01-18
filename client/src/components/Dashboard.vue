@@ -5,7 +5,7 @@
     <v-form>
         <p></p>
         <v-row justify="center">
-            <v-btn @click="Register" class="cyan lighten-1 white--text">Register</v-btn>
+            <v-btn @click="Customer" class="cyan lighten-1 white--text">Register Customer</v-btn>
         </v-row>
         <p></p>
         <v-row justify="center">
@@ -48,8 +48,8 @@ export default {
         Logout(){
             this.$router.push("/")
         },
-        Register(){
-            this.$router.push({name: 'Register', params: {em: this.emid} });
+        Customer(){
+            this.$router.push({name: 'Customer', params: {em: this.emid} });
         },
         Product(){
             this.$router.push({name: 'Product', params: {em: this.emid} });
