@@ -18,5 +18,5 @@ public class TitleName {
 	private @NonNull String title;
 
 	@OneToMany(fetch = FetchType.EAGER)
-	private Collection<Register> register;
+	private Collection<Customer> customer;
 }
