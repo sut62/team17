@@ -16,13 +16,13 @@ import com.okta.springbootvue.entity.ta.TitleName;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="REGISTER")
-public class Register {
+@Table(name="CUSTOMER")
+public class Customer {
 
     @Id
-    @SequenceGenerator(name="register_seq",sequenceName="register_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="register_seq")
-    @Column(name = "REGISTER_ID", unique = true, nullable = true)
+    @SequenceGenerator(name="customer_seq",sequenceName="customer_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="customer_seq")
+    @Column(name = "CUSTOMER_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
     @Column(name="DATE")
