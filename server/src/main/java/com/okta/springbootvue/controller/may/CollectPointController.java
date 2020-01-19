@@ -14,12 +14,12 @@ import java.net.URLDecoder;
 import java.time.LocalDateTime;
 
 import com.okta.springbootvue.entity.may.*;
-import com.okta.springbootvue.entity.ta.Register;
+import com.okta.springbootvue.entity.ta.Customer;
 import com.okta.springbootvue.entity.oil.Employee;
 import com.okta.springbootvue.entity.parn.Payment;
 
 import com.okta.springbootvue.repository.may.*;
-import com.okta.springbootvue.repository.ta.RegisterRepository;
+import com.okta.springbootvue.repository.ta.CustomerRepository;
 import com.okta.springbootvue.repository.oil.EmployeeRepository;
 import com.okta.springbootvue.repository.parn.PaymentRepository;
 
@@ -33,7 +33,7 @@ public class CollectPointController {
     @Autowired
     private PointPriceRepository pointPriceRepository;
     @Autowired
-    private RegisterRepository registerRepository;
+    private CustomerRepository customerRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
@@ -54,22 +54,22 @@ public class CollectPointController {
         return collectPointRepository.findCollectByPayment(paymentRepository.findById(payment));
     }
     
-    @PostMapping("/collectPoint/{em_id}/{reg_id}/{po_id}/{pay_id}/{point}")
+    @PostMapping("/collectPoint/{em_id}/{cus_id}/{po_id}/{pay_id}/{point}")
     public CollectPoint newCollectPoint(CollectPoint newCollectPoint,
     @PathVariable long em_id,
-    @PathVariable long reg_id,
+    @PathVariable long cus_id,
     @PathVariable long po_id,
     @PathVariable long pay_id,
     @PathVariable Integer point) {
     
     Employee em = employeeRepository.findById(em_id);
-    Register r = registerRepository.findById(reg_id);
+    Customer c = customerRepository.findById(cus_id);
     PointPrice po = pointPriceRepository.findById(po_id);
     Payment p = paymentRepository.findById(pay_id);
     LocalDateTime now = LocalDateTime.now();
 
     newCollectPoint.setEmployee(em);
-    newCollectPoint.setRegister(r);
+    newCollectPoint.setCustomer(c);
     newCollectPoint.setPointPrice(po);
     newCollectPoint.setPayment(p);
     newCollectPoint.setPoint(point);
