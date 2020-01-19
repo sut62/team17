@@ -4,7 +4,7 @@ import lombok.*;
 import java.util.*;
 import java.time.LocalDateTime;
 import javax.persistence.*;
-import com.okta.springbootvue.entity.ta.Register;
+import com.okta.springbootvue.entity.ta.Customer;
 import com.okta.springbootvue.entity.oil.Employee;
 import com.okta.springbootvue.entity.parn.Payment;
 
@@ -23,9 +23,9 @@ public class CollectPoint {
 
     private @NonNull Integer point;
     
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Register.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
     @JoinColumn(name = "REGISTER_ID", insertable = true)
-    private Register register;
+    private Customer customer;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
