@@ -25,13 +25,13 @@
 
     <v-row justify="center">
       <v-col cols="12" sm="4">
-        <p>Register</p>
+        <p>Customer</p>
 
         <v-overflow-btn
           class="my-2"
-          v-model="collectPoint.registerId"
-          :items="registers"
-          label="Register"
+          v-model="collectPoint.customerId"
+          :items="customers"
+          label="Customer"
           item-text="name"
           item-value="id"
           :rules="[(v) => !!v || 'Item is required']"
@@ -121,7 +121,7 @@ export default {
       
         collectPoint: {
         employeeId: "",
-        registerId: "",
+        customerId: "",
         paymentId: "",
         pointPriceId: "",
         tpoint: ""
@@ -131,7 +131,7 @@ export default {
       valid: false,
       Cost: "",
       employees:[],
-      registers:[],
+      customers:[],
       payments:[],
       paymentcus:[],
       collectPoints:[],
@@ -167,11 +167,11 @@ export default {
 
     },
 
-    getRegisters() {
+    getCustomers() {
       http
-        .get("/register")
+        .get("/customer")
         .then(response => {
-          this.registers = response.data;
+          this.customers = response.data;
           console.log(response.data);
         })
         .catch(e => {
@@ -199,9 +199,9 @@ export default {
           this.paymentcus = [];
           let l = 0;
           this.Cost = null ;
-        if(this.collectPoint.registerId != null){        
+        if(this.collectPoint.customerId != null){        
          for (let j in this.payments) {           
-          if (this.payments[j].member.id == this.collectPoint.registerId ){ 
+          if (this.payments[j].member.id == this.collectPoint.customerId ){ 
             this.paymentcus[l] = this.payments[j];
             l++; 
           }
@@ -261,7 +261,7 @@ export default {
 
     saveCollectPoint() {
       if(this.collectPoint.employeeId == ""||
-      this.collectPoint.registerId == ""||
+      this.collectPoint.customerId == ""||
       this.collectPoint.paymentId == ""||
       this.collectPoint.pointPriceId == ""||
       this.collectPoint.tpoint == ""||
@@ -275,7 +275,7 @@ export default {
           "/collectPoint/" +
             this.collectPoint.employeeId +
             "/" +
-            this.collectPoint.registerId +
+            this.collectPoint.customerId +
             "/" +
             this.collectPoint.pointPriceId +
             "/" +
@@ -299,7 +299,7 @@ export default {
     },
     clear() {
       this.paymentcus = [];
-      this.collectPoint.registerId = "";
+      this.collectPoint.customerId = "";
       this.collectPoint.paymentId = "";
       this.collectPoint.pointPriceId = "";
       this.collectPoint.tpoint = "";
@@ -308,7 +308,7 @@ export default {
     },
     refreshList() {
       this.getEmployees();
-      this.getRegisters();
+      this.getCustomers();
       this.getPayments();
       this.getPointPrices();
       this.getPaymentcus();
@@ -320,7 +320,7 @@ export default {
 
   mounted() {
       this.getEmployees();
-      this.getRegisters();
+      this.getCustomers();
       this.getPayments();
       this.getPointPrices();
       this.getPaymentcus();
