@@ -17,6 +17,7 @@ import javax.persistence.Table; */
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.okta.springbootvue.entity.ta.*;
 import com.okta.springbootvue.entity.oil.*;
+import com.okta.springbootvue.entity.joy.*;
 
 
 @Data
@@ -43,11 +44,11 @@ public class Payment {
     private PaymentType type;
 
 
- 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Register.class)
+ 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
     @JoinColumn(name = "REGISTER_ID", insertable = true)
-    private Register member;
+    private Customer member;
  
-    @OneToMany(fetch = FetchType.EAGER, mappedBy  ="payment")
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Product.class)
     @JsonManagedReference //แสดงข้อมูลทุกอย่าง
     private Collection<Product> product;
 
