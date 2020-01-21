@@ -7,6 +7,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import com.okta.springbootvue.entity.oil.*;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PastOrPresent;
+
+
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -19,14 +25,19 @@ public class Product {
     @Column(name = "Product_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
+    @NotNull
+    @Positive
     @Column(name="QUANTITY")
-    private @NonNull Integer quantity;
+    private  Integer quantity;
 
+    @NotNull
     @Column(name="PRICE")
-    private @NonNull Integer price;
+    private  Integer price;
 
+    @NonNull
+    @PastOrPresent
     @Column(name="DATE")
-    private @NonNull LocalDateTime date;
+    private  LocalDateTime date;
 
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
