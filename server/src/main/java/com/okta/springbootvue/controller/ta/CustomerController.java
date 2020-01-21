@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import java.time.LocalDateTime;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class CustomerController {
 
@@ -38,12 +38,17 @@ public class CustomerController {
         return customerRepository.findAll().stream().collect(Collectors.toList());
     }
 
+    @GetMapping("/customertel/{tel}")
+    public Customer findByTel(@PathVariable String tel) {
+        return customerRepository.findByTel(tel);
+    }
+
     @PostMapping("/customer/{name}/{lname}/{address}/{tel}/{employee_id}/{titlename_id}/{gender_id}")
     public Customer newCustomer(Customer newCustomer,
     @PathVariable String name,
     @PathVariable String lname,
     @PathVariable String address,
-    @PathVariable Long tel,
+    @PathVariable String tel,
     @PathVariable long employee_id,
     @PathVariable long titlename_id,
     @PathVariable long gender_id) {
