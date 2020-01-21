@@ -83,7 +83,7 @@ export default {
     /* eslint-disable no-console */
 
     getEmployees() {
-        if(this.searchSale.username == ""){
+        if(this.searchSale.username != ""){
             http
             .get("/EmployeeUser/" + this.searchSale.username)
             .then(response => {
