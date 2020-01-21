@@ -4,7 +4,7 @@
     <v-row justify="center">
       <h1 class="text mt-5 pt-5"
       style="text-align: center;
-      font: 40px BankGothic Md BT, sans-serif;
+      font: 40px Times New Roman, sans-serif;
       width: 100%;"><strong>ADD EMPLOYEE SYSTEM</strong></h1>
     </v-row>
     <v-col></v-col>
@@ -24,6 +24,7 @@
         <v-text-field 
           outlined
           solo
+          label="8-16 characters"
           v-model="Employee.password"
           :rules="[(v) => !!v || 'Item is required']"
           required
@@ -32,7 +33,7 @@
     </v-row>
 
     <v-row justify="center">
-      <v-col cols="12" sm="3">
+      <v-col id = "1" cols="12" sm="3">
         <p class="font-weight-black">Gender</p>
         <v-select
           label="select gender"
@@ -45,7 +46,7 @@
           required
         ></v-select>
       </v-col>
-      <v-col cols="12" sm="3">
+      <v-col id = "2" cols="12" sm="3">
         <p class="font-weight-black">Type</p>
         <v-select
           label="select type"
@@ -58,7 +59,7 @@
           required
         ></v-select>
       </v-col>
-      <v-col cols="12" sm="3">
+      <v-col id = "3" cols="12" sm="3">
         <p class="font-weight-black">Vacancy</p>
         <v-select
           label="select vacancy"
@@ -74,9 +75,26 @@
     </v-row>
 
     <v-row justify="center">
-      <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveEmployee" dark>CONFIRM
-        <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+      <v-btn rounded style="margin: 10px ; background-color: #2D85D5" @click="Search" dark>SEARCH
+        <v-icon dark right>mdi-account-search</v-icon>
       </v-btn>
+
+      <v-dialog v-model="dialog" persistent max-width="290" >
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on" rounded style="margin: 10px ; background-color: #00C853" @click="saveEmployee" dark>CONFIRM
+            <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+          </v-btn>
+        </template>
+          <v-card>
+            <v-card-title class="headline">notification</v-card-title>
+            <v-card-text v-if="suc" >Add Employee Success</v-card-text>
+            <v-card-text v-if="!suc" >Fill out incomplete information or Password isn't valid</v-card-text>
+            <v-card-actions><v-spacer></v-spacer>
+              <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+            </v-card-actions>
+          </v-card>  
+      </v-dialog>
+
       <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
         <v-icon dark right>mdi-cancel</v-icon>
       </v-btn>
@@ -104,12 +122,17 @@ export default {
       },
       Genders: [],
       Types: [],
-      Vacancys: []
+      Vacancys: [],
+      dialog:false,
+      suc:false
     };
   },
 
   methods: {
     /* eslint-disable no-console */
+    Search(){
+      this.$router.push("/SearchSale")
+    },
     Logout(){
       this.$router.push("/")
     },
@@ -183,7 +206,8 @@ export default {
         !this.Employee.TypeId ||
         !this.Employee.VacancyId
       ) {
-        alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
+        this.suc = false;
+        this.clear();
       } else {
         http
           .post(
@@ -200,8 +224,9 @@ export default {
             this.Employee
           )
           .then(response => {
-            alert("บันทึกข้อมูลสำเร็จ!");
             console.log(response);
+            this.suc = true;
+            this.clear();
           })
           .catch(e => {
             console.log(e);
