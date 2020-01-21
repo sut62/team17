@@ -45,7 +45,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public Add_Product getAdd_ProductId(@PathVariable("id") Long id) {
+    public Product getProductId(@PathVariable("id") Long id) {
          return add_ProductRepository.findById(id).get();
     }
 
