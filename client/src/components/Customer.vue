@@ -23,7 +23,7 @@
     </v-row>
 
     <v-row justify="center">
-      <v-col cols="3" sm="2">
+      <v-col id = "1" cols="3" sm="2">
         <v-select
           v-model="customer.titleId"
           :items="titlenames"
@@ -36,7 +36,7 @@
         ></v-select>
       </v-col>
 
-      <v-col cols="3" sm="4">
+      <v-col id = "2" cols="3" sm="4">
           <v-text-field
             label="Name"
             v-model="customer.name"
@@ -46,7 +46,7 @@
           ></v-text-field>
       </v-col>
 
-      <v-col cols="3" sm="4">
+      <v-col id = "3" cols="3" sm="4">
         <v-text-field
             label="Last Name"
             v-model="customer.lname"
@@ -58,7 +58,7 @@
     </v-row>
     
     <v-row justify="center">
-      <v-col cols="3" sm="2">
+      <v-col id = "4" cols="3" sm="2">
         <v-select
           v-model="customer.genderId"
           :items="genders"
@@ -71,7 +71,7 @@
         ></v-select>
       </v-col>
 
-      <v-col cols="12" sm="12" md="8">
+      <v-col id = "5" cols="12" sm="12" md="8">
           <v-text-field
             label="Address"
             v-model="customer.address"
@@ -83,7 +83,7 @@
       </v-row>
 
       <v-row justify="center">
-      <v-col cols="12" sm="10" md="4">
+      <v-col id = "6" cols="12" sm="10" md="4">
           <v-text-field
             label="Tel"
             v-model="customer.tel"
@@ -95,15 +95,33 @@
     </v-row>
     
     <v-row justify="center">
-      <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveCustomer" dark>REGISTER
-        <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
-      </v-btn>
-      <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
-        <v-icon dark right>mdi-cancel</v-icon>
-      </v-btn>
-      <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
-        <v-icon dark right>mdi-logout</v-icon>
-      </v-btn>
+        <v-col cols="10" sm="2">
+          <v-dialog v-model="dialog" persistent max-width="290" >
+           <template v-slot:activator="{ on }">
+            <v-btn v-on="on" @click="saveCustomer" color="green" dark>REGISTER
+              <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+            </v-btn>
+           </template>
+          <v-card>
+            <v-card-title class="headline">notification</v-card-title>
+              <v-card-text v-if="suc" >Register Success</v-card-text>
+              <v-card-text v-if="!suc" >Please Select All !!</v-card-text>
+                <v-card-actions><v-spacer></v-spacer>
+                  <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+                </v-card-actions>
+          </v-card>
+          </v-dialog>
+        </v-col>
+        <v-col cols="10" sm="2">
+            <v-btn @click="clear" color="red" dark>Decline
+              <v-icon dark right>mdi-cancel</v-icon>
+            </v-btn>
+        </v-col>
+        <v-col cols="10" sm="2">
+            <v-btn style="background-color: #000000" @click="Logout" dark>LOG OUT
+              <v-icon dark right>mdi-logout</v-icon>
+            </v-btn>
+        </v-col>
     </v-row>
     </v-card>
   </v-container>
@@ -130,15 +148,16 @@ export default {
       genders:[],
       valid: false,
       emid: -99,
-      lock:false
+      lock:false,
+      dialog:false,
+      suc:null
     };
   },
 
 
   methods: {
     lockemployee(){
-      this.emid = this.$route.params.em;
-      this.customer.employeeId  = this.emid;
+      this.customer.employeeId  = JSON.parse(localStorage.getItem("id"));
       this.lock = true;
     },
     /*back(){
@@ -194,7 +213,7 @@ export default {
         !this.customer.titleId ||
         !this.customer.genderId
       ) {
-        alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
+        this.suc = false;
         this.clear();
       } else {
         http
@@ -216,8 +235,9 @@ export default {
           this.customer
        )
           .then(response => {
-            alert("บันทึกข้อมูลสำเร็จ!");
             console.log(response);
+            this.suc = true;
+            this.clear();
           })
           .catch(e => {
             console.log(e);
@@ -238,6 +258,7 @@ export default {
     this.getEmployees();
     this.getTitleNames();
     this.getGenders();
+    this.lockemployee();
     }
    
    /* eslint-enable no-console */
