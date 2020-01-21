@@ -22,20 +22,20 @@
               required></v-text-field>
               </v-col>
           </v-row>
-          <v-row justify="center">
-             <v-col class="ml-10" cols="12" sm="6" md="6">
-            <v-select class=" px-12 mx-12"
-              label="Choose Vacancy"
-              outlined
-              v-model="login.choose"
-              :items="chooses"
-              :rules="[(v) => !!v || 'Item is required']"
-              required
-            ></v-select>
-            </v-col>
-          </v-row>
           <v-row justify="center" class="pb-12 mb-10" >
-            <v-btn @click="Login" class="cyan lighten-1 white--text">Login</v-btn>
+            <v-dialog v-model="dialog" persistent max-width="290" >
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" @click="Login" class="cyan lighten-1 white--text">Login</v-btn>
+              </template>
+            <v-card>
+              <v-card-title class="headline">notification</v-card-title>
+                <v-card-text v-if="er" >Incorrect Username or Password !!</v-card-text>
+                <v-card-text v-if="!er" >Please Insert All !!</v-card-text>
+                  <v-card-actions><v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+                  </v-card-actions>
+            </v-card>
+            </v-dialog>
           </v-row>
           </v-form>
         </v-card>
@@ -51,55 +51,42 @@ export default {
         return{
           login:{
           username: "",
-          password: "",
-          choose:""
+          password: ""
           },
           employee:[],
-          chooses:["Manager","Employee"]
+          er: null,
+          dialog: false
         };
     },
 
  methods: {
   Login() {
-  if(!this.login.username||!this.login.password||!this.login.choose){
-  alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
-  }
-  else if(this.login.choose == "Employee"){
-     http
+  if(!this.login.username||!this.login.password){
+    this.er = false;
+  }else{
+  http
         .get("/Employee/" + this.login.username + "/" + this.login.password)
         .then(response => {
-          
-          if (this.login.username == response.data.username && this.login.password == response.data.password) {
+    if (this.login.username == response.data.username && this.login.password == response.data.password) {
+      if(response.data.vacancy.vacancy == "Employee"){
             this.employee = response.data;
             this.login.username = response.data.username;
             this.login.password = response.data.password;
-            alert(this.login.username)
-            alert("Login complete!");
-            this.$router.push({name: 'Dashboard' , params: {em: this.employee.id} }); 
-          } 
-          else {
-            alert("Incorrect Username or Password");
-          }
-          })
-  }else if (this.login.choose == "Manager"){
-    http
-    .get("/Employee/" + this.login.username  + "/" + this.login.password)
-    .then(response=>{
-
-       if (this.login.username == response.data.username && this.login.password == response.data.password) {
-            this.employee = response.data;
+            this.$router.push({name: 'Dashboard'}); 
+            localStorage.setItem("id",this.employee.id);
+      }else if(response.data.vacancy.vacancy == "Manager"){
+      this.employee = response.data;
             this.login.username = response.data.username;
             this.login.password = response.data.password;
-            alert(this.login.username)
-            alert("Login complete!");
-            this.$router.push({name: 'Employee' , params: {em: this.employee.id} }); 
-          } 
-          else {
-            alert("Incorrect Username or Password");
-          }
-          })
+            this.$router.push({name: 'Employee'});
+            localStorage.setItem("id",this.employee.id);}
+      this.dialog = false;
+    }else{
+      this.er = true;
+    }
+        })
   }
-   }
+  }
  }
 };
 </script>
