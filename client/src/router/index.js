@@ -4,8 +4,8 @@ import Login from '../components/Login'
 import Dashboard from '../components/Dashboard'
 import Employee from '../components/Employee'
 import PreOrder from '../components/PreOrder'
-import AddProduct from '../components/AddProduct'
-import Register from '../components/Register'
+import Product from '../components/Product'
+import Customer from '../components/Customer'
 import CollectPoint from '../components/CollectPoint'
 import SearchSale from '../components/SearchSale'
 
@@ -31,19 +31,19 @@ export default new Router({
       component: Employee
     },
     {
-      path: '/Register',
-      name:'Register',
-      component: Register
+      path: '/SearchSale',
+      name:'SearchSale',
+      component: SearchSale
     },
     {
-      path: '/PreOrder',
-      name:'PreOrder',
-      component: PreOrder
+      path: '/Product',
+      name:'Product',
+      component: Product
     },
     {
-      path: '/AddProduct',
-      name:'AddProduct',
-      component: AddProduct
+      path: '/Customer',
+      name:'Customer',
+      component: Customer
     },
     {
       path: '/CollectPoint',
@@ -51,9 +51,9 @@ export default new Router({
       component: CollectPoint
     },
     {
-      path: '/SearchSale',
-      name:'SearchSale',
-      component: SearchSale
+      path: '/PreOrder',
+      name:'PreOrder',
+      component: PreOrder
     }
   ]
 })
