@@ -14,7 +14,9 @@ import java.net.URLDecoder;
 import java.time.LocalDateTime;
 
 import com.okta.springbootvue.entity.oil.*;
+import com.okta.springbootvue.entity.parn.Payment;
 import com.okta.springbootvue.repository.oil.*;
+import com.okta.springbootvue.repository.parn.PaymentRepository;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController //แปลงdataเป็นjson file
@@ -27,6 +29,8 @@ public class EmployeeController {
     private TypeRepository typeRepository;
     @Autowired
     private VacancyRepository vacancyRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
     
 
     EmployeeController(EmployeeRepository employeeRepository) {
@@ -40,9 +44,9 @@ public class EmployeeController {
     public Collection<Employee> Employees() {
         return employeeRepository.findAll().stream().collect(Collectors.toList());
     }
-    @GetMapping("/employee/{id}")
-    public Employee getEmployeeId(@PathVariable("id") Long id) {
-         return employeeRepository.findById(id).get();
+    @GetMapping("/EmployeeUser/{username}")
+    public Collection<Payment> findByEmployee(@PathVariable String username){
+        return paymentRepository.findByEmployee(employeeRepository.findByUsername(username));
     }
 
     @PostMapping("/Employee/{username}/{password}/{gender_id}/{type_id}/{vacancy_id}")
