@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 public
 interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findById(long id);
+    Employee findByUsername(String username);
     @Query( value = "SELECT * FROM Employee e where e.USERNAME = :username and e.PASSWORD = :password",
             nativeQuery = true)
         Employee findPatientByEmployee(@Param("username") String username,
