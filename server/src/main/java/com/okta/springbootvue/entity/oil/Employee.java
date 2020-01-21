@@ -50,7 +50,7 @@ public class Employee {
     private Vacancy vacancy;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private Collection<Add_Product> add_product;
+    private Collection<Product> product;
 
     @OneToMany(fetch = FetchType.EAGER)
     private Collection<CollectPoint> collectpoint;
