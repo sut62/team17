@@ -4,9 +4,10 @@ import Login from '../components/Login'
 import Dashboard from '../components/Dashboard'
 import Employee from '../components/Employee'
 import PreOrder from '../components/PreOrder'
-import Product from '../components/Product'
-import Customer from '../components/Customer'
+import AddProduct from '../components/AddProduct'
+import Register from '../components/Register'
 import CollectPoint from '../components/CollectPoint'
+import SearchSale from '../components/SearchSale'
 
 Vue.use(Router)
 
@@ -30,9 +31,9 @@ export default new Router({
       component: Employee
     },
     {
-      path: '/Customer',
-      name:'Customer',
-      component: Customer
+      path: '/Register',
+      name:'Register',
+      component: Register
     },
     {
       path: '/PreOrder',
@@ -40,14 +41,19 @@ export default new Router({
       component: PreOrder
     },
     {
-      path: '/Product',
-      name:'Product',
-      component: Product
+      path: '/AddProduct',
+      name:'AddProduct',
+      component: AddProduct
     },
     {
       path: '/CollectPoint',
       name:'CollectPoint',
       component: CollectPoint
+    },
+    {
+      path: '/SearchSale',
+      name:'SearchSale',
+      component: SearchSale
     }
   ]
 })
