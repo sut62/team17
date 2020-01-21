@@ -3,6 +3,7 @@ package com.okta.springbootvue.entity.apple;
 import lombok.*;
 import java.util.*;
 import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 import com.okta.springbootvue.entity.oil.Employee;
@@ -10,11 +11,11 @@ import com.okta.springbootvue.entity.ta.TitleName;
 import com.okta.springbootvue.entity.joy.Brand;
 import com.okta.springbootvue.entity.joy.Type_Product;
 
+import javax.validation.constraints.*;
 
 @Data
 @Entity
 @NoArgsConstructor
-
 @Table(name="PRE_ORDER")
 public class Pre_Order {
 
@@ -24,18 +25,21 @@ public class Pre_Order {
     @Column(name = "PRE_ORDER_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
+    @Size(min=3, max=30)
     @Column(name="CUS_NAME")
-    private @NonNull String cus_name;
+    private @NotNull String cus_name;
+
 
     @Column(name="DATE")
     private @NonNull LocalDateTime Date;
 
+    @Pattern(regexp = "\\d{10}")
     @Column(name="TEL")
-    private @NonNull String tel;
+    private @NotNull String tel;
 
+    @Positive
     @Column(name="QUANTITY")
-    private @NonNull int quantity;
-
+    private @NotNull int quantity;
 
     
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
@@ -52,6 +56,5 @@ public class Pre_Order {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Type_Product.class)
     @JoinColumn(name = "TYPE_PRODUCT_ID", insertable = true)
-    private Type_Product type_product;  
-    
+    private Type_Product type_product;
 }
