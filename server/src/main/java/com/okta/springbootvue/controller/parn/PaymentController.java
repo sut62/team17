@@ -26,18 +26,18 @@ import java.time.LocalDateTime;
 import com.okta.springbootvue.entity.parn.Payment;
 import com.okta.springbootvue.entity.oil.Employee;
 import com.okta.springbootvue.entity.parn.PaymentType;
-import com.okta.springbootvue.entity.ta.Register;
+import com.okta.springbootvue.entity.ta.Customer;
 import com.okta.springbootvue.entity.joy.Product;
 
 import com.okta.springbootvue.repository.parn.PaymentRepository;
 import com.okta.springbootvue.repository.oil.EmployeeRepository;
 import com.okta.springbootvue.repository.parn.PaymentTypeRepository;
-import com.okta.springbootvue.repository.ta.RegisterRepository;
+import com.okta.springbootvue.repository.ta.CustomerRepository;
 import com.okta.springbootvue.repository.joy.ProductRepository;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class PaymentController {
     @Autowired
@@ -49,15 +49,15 @@ public class PaymentController {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private RegisterRepository registerRepository;
+    private CustomerRepository customerRepository;
 
     public PaymentController( PaymentRepository paymentRepository, EmployeeRepository employeeRepository, PaymentTypeRepository paymentTypeRepository, 
-    	ProductRepository productRepository, RegisterRepository registerRepository) {
+    	ProductRepository productRepository, CustomerRepository customerRepository) {
         this.paymentRepository = paymentRepository;
         this.employeeRepository = employeeRepository;
         this.paymentTypeRepository = paymentTypeRepository;
         this.productRepository = productRepository;
-        this.registerRepository = registerRepository;
+        this.customerRepository = customerRepository;
     }
 
     /*@GetMapping("/payment")
