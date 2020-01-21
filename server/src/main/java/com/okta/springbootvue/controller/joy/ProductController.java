@@ -46,7 +46,7 @@ public class ProductController {
 
     @GetMapping("/product/{id}")
     public Product getProductId(@PathVariable("id") Long id) {
-         return add_ProductRepository.findById(id).get();
+         return ProductRepository.findById(id).get();
     }
 
     @PostMapping("/product/{employee_id}/{brand_id}/{type_product_id}/{quantity}/{price}")
