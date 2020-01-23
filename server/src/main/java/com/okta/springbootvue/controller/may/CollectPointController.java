@@ -53,6 +53,11 @@ public class CollectPointController {
     public CollectPoint getCollectByPayment(@PathVariable long payment) {
         return collectPointRepository.findCollectByPayment(paymentRepository.findById(payment));
     }
+
+    @GetMapping("/collectPointtel/{customertel}")
+    public Collection<CollectPoint> findCollectByCustomer(@PathVariable String customertel) {
+        return collectPointRepository.findCollectByCustomer(customerRepository.findByTel(customertel));
+    }
     
     @PostMapping("/collectPoint/{em_id}/{cus_id}/{po_id}/{pay_id}/{point}")
     public CollectPoint newCollectPoint(CollectPoint newCollectPoint,
