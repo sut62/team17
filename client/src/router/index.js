@@ -5,6 +5,7 @@ import Dashboard from '../components/Dashboard'
 import Employee from '../components/Employee'
 import PreOrder from '../components/PreOrder'
 import Product from '../components/Product'
+import ShowProduct from '../components/ShowProduct'
 import Customer from '../components/Customer'
 import CollectPoint from '../components/CollectPoint'
 import SearchSale from '../components/SearchSale'
@@ -40,6 +41,11 @@ export default new Router({
       path: '/Product',
       name:'Product',
       component: Product
+    },
+    {
+      path: '/ShowProduct',
+      name:'ShowProduct',
+      component: ShowProduct
     },
     {
       path: '/Customer',
