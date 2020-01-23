@@ -37,7 +37,7 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
     }
     @GetMapping("/Employee/{username}/{password}")
-    public Employee getPatientByFirstName(@PathVariable("username") String username, @PathVariable("password") String password) {
+    public Employee getPatientByEmployee(@PathVariable("username") String username, @PathVariable("password") String password) {
         return employeeRepository.findPatientByEmployee(username,password);
     }
     @GetMapping("/Employee")
