@@ -1,20 +1,30 @@
 <template>
   <v-container>
-    <v-card color="#BCFFE9">
-    <v-layout text-center wrap>
-      <v-flex mb-4>
-        <br />
+    <v-card color="teal lighten-5">
+    <v-row justify="center">
+      <v-col cols="2">
+        <v-btn @click="Back" rounded style="background-color:#FFFFFF; position: absolute; left: 15px;">
+          <v-icon>mdi-keyboard-backspace</v-icon>
+          BACK
+        </v-btn>
+      </v-col>
+      <v-col cols="8">
         <h1 class="text mt-5 pt-5"
-      style="text-align: center;
-      font: 40px Times New Roman, sans-serif;
-      width: 100%;"><strong>SEARCH SALE RECORD</strong></h1>
-      </v-flex>
-    </v-layout>
+            style="text-align: center; font: 40px Times New Roman, sans-serif; width: 100%;">
+            <strong>SEARCH SALE RECORD</strong>
+        </h1>
+      </v-col>
+      <v-col cols="2">
+        <v-btn @click="Logout" rounded style="background-color: #000000 position: absolute; left: 50px;" dark>LOG OUT
+          <v-icon dark right>mdi-logout</v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
 
     <v-row justify="center">
         <v-col cols="4">
             <v-row justify="center">
-            <v-col cols="10">
+            <v-col cols="8">
               <v-text-field
                 outlined
                 label="insert username"
@@ -23,11 +33,13 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="2">
+            <v-col cols="4">
               <div class="my-2">
                 <v-dialog v-model="dialog" persistent max-width="290" >
                   <template v-slot:activator="{ on }">
-                    <v-btn v-on="on" @click="getEmployees" depressed large color="primary">Search</v-btn>
+                    <v-btn v-on="on" @click="getEmployees" depressed large color="primary">Search
+                      <v-icon dark right>mdi-magnify</v-icon>
+                    </v-btn>
                   </template>
                 <v-card>
                   <v-card-title class="headline">notification</v-card-title>
@@ -45,11 +57,12 @@
       </v-row>
 
     <v-row justify="center">
-      <v-col  cols="8">
+      <v-col cols="8">
         <v-data-table :headers="headers" 
                       :items="items" 
                       :items-per-page="10" 
-                      class="elevation-1">
+                      class="elevation-1"
+                      >
         </v-data-table>
       </v-col>
     </v-row>
@@ -81,6 +94,12 @@ export default {
 
   methods: {
     /* eslint-disable no-console */
+    Back(){
+      this.$router.push("/Employee")
+    },
+    Logout(){
+      this.$router.push("/")
+    },
 
     getEmployees() {
         if(this.searchSale.username != ""){

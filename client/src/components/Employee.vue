@@ -2,12 +2,20 @@
   <v-container>
     <v-card color="teal lighten-5">
     <v-row justify="center">
-      <h1 class="text mt-5 pt-5"
-      style="text-align: center;
-      font: 40px Times New Roman, sans-serif;
-      width: 100%;"><strong>ADD EMPLOYEE SYSTEM</strong></h1>
+      <v-col cols="2"></v-col>
+      <v-col cols="8">
+        <h1 class="text mt-5 pt-5"
+            style="text-align: center;font: 40px Times New Roman, sans-serif;width: 100%;">
+            <strong>ADD EMPLOYEE SYSTEM</strong>
+        </h1>
+      </v-col>
+      <v-col cols="2">
+        <v-btn @click="Logout" rounded style="background-color: #000000 position: absolute; left: 50px;" dark>LOG OUT
+          <v-icon dark right>mdi-logout</v-icon>
+        </v-btn>
+      </v-col>
     </v-row>
-    <v-col></v-col>
+    
     <v-row justify="center">
     <v-col cols="12" sm="5">
         <p class="font-weight-black">USERNAME</p>
@@ -78,7 +86,6 @@
       <v-btn rounded style="margin: 10px ; background-color: #2D85D5" @click="Search" dark>SEARCH
         <v-icon dark right>mdi-account-search</v-icon>
       </v-btn>
-
       <v-dialog v-model="dialog" persistent max-width="290" >
         <template v-slot:activator="{ on }">
           <v-btn v-on="on" rounded style="margin: 10px ; background-color: #00C853" @click="saveEmployee" dark>CONFIRM
@@ -94,12 +101,8 @@
             </v-card-actions>
           </v-card>  
       </v-dialog>
-
       <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
         <v-icon dark right>mdi-cancel</v-icon>
-      </v-btn>
-      <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
-        <v-icon dark right>mdi-logout</v-icon>
       </v-btn>
     </v-row>
     <v-col></v-col>
@@ -251,4 +254,3 @@ export default {
   }
 };
 </script>
-
