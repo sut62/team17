@@ -70,6 +70,31 @@ public class EmployeeTests {
     }
 
     @Test
+    void b6018221_testDateMustNotBeNull() {
+        Employee employee = new Employee();
+        Gender gender = genderRepository.findById(2);
+        Type type = typeRepository.findById(2);
+        Vacancy vacancy = vacancyRepository.findById(2);
+
+        employee.setDate(null);
+        employee.setUsername("ta");
+        employee.setPassword("12345678");
+        employee.setGender(gender);
+        employee.setType(type);
+        employee.setVacancy(vacancy);
+
+        Set<ConstraintViolation<Employee>> result = validator.validate(employee);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Employee> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("date", v.getPropertyPath().toString());
+    }
+
+    @Test
     void b6018221_testUsernameMustNotBeNull() {
         Employee employee = new Employee();
         LocalDateTime now = LocalDateTime.now();
@@ -93,6 +118,32 @@ public class EmployeeTests {
         ConstraintViolation<Employee> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
         assertEquals("username", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6018221_testPasswordMustNotBeNull() {
+        Employee employee = new Employee();
+        LocalDateTime now = LocalDateTime.now();
+        Gender gender = genderRepository.findById(2);
+        Type type = typeRepository.findById(2);
+        Vacancy vacancy = vacancyRepository.findById(2);
+
+        employee.setDate(now);
+        employee.setUsername("ta");
+        employee.setPassword(null);
+        employee.setGender(gender);
+        employee.setType(type);
+        employee.setVacancy(vacancy);
+
+        Set<ConstraintViolation<Employee>> result = validator.validate(employee);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Employee> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("password", v.getPropertyPath().toString());
     }
 
     @Test
