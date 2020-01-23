@@ -88,7 +88,7 @@
           <v-card>
             <v-card-title class="headline">notification</v-card-title>
             <v-card-text v-if="suc" >Add Employee Success</v-card-text>
-            <v-card-text v-if="!suc" >Fill out incomplete information or Password isn't valid</v-card-text>
+            <v-card-text v-if="!suc" >Fill out incomplete information or Password is invalid</v-card-text>
             <v-card-actions><v-spacer></v-spacer>
               <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
             </v-card-actions>
