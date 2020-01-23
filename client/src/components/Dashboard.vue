@@ -5,17 +5,13 @@
     <v-form>
         <p></p>
         <v-row justify="center">
-            <v-btn @click="Customer" class="cyan lighten-1 white--text">Register Customer</v-btn>
+            <v-btn @click="Register" class="cyan lighten-1 white--text">Register</v-btn>
         </v-row>
         <p></p>
         <v-row justify="center">
             <v-btn @click="Product" class="cyan lighten-1 white--text">Product</v-btn>
         </v-row>
         <p></p>
-        <!--v-row justify="center">
-            <v-btn @click="Payment" class="cyan lighten-1 white--text">Payment</v-btn>
-        </v-row>
-        <p></p-->
         <v-row justify="center">
             <v-btn @click="CollectPoint" class="cyan lighten-1 white--text">Collect Point</v-btn>
         </v-row>
@@ -28,6 +24,7 @@
             <v-btn @click="Logout" class="red white--text">Logout</v-btn>
         </v-row>
         <p></p>
+        <v-row></v-row>
     </v-form>
     </v-card>
 </v-container>
@@ -35,38 +32,24 @@
 
 <script>
 export default {
-    data(){
-        return{
-            id:-99
-        };
-    },
     methods: {
-        getLockId(){
-            this.emid = this.$route.params.em;
-            
-        },
         Logout(){
+            localStorage.setItem("id","");
             this.$router.push("/")
         },
-        Customer(){
-            this.$router.push({name: 'Customer', params: {em: this.emid} });
+        Register(){
+            this.$router.push({name: 'Register'});
         },
         Product(){
-            this.$router.push({name: 'Product', params: {em: this.emid} });
+            this.$router.push({name: 'Product'});
         },
-        /*Payment(){
-            this.$router.push({name: 'Payment', params: {em: this.emid} });
-        },*/
         CollectPoint(){
-            this.$router.push({name: 'CollectPoint', params: {em: this.emid} });
+            this.$router.push({name: 'CollectPoint' });
         },
         Pre_Order(){
-            this.$router.push({name: 'PreOrder', params: {em: this.emid} })
+            this.$router.push({name: 'PreOrder'})
         }
     },
-    mounted(){
-        this.getLockId();
-    }
 }
 </script>
 
