@@ -7,7 +7,7 @@
               <v-icon dark right>mdi-arrow-left-bold</v-icon>
             </v-btn>
         </v-col> 
-        <h1 class="display-1 font-italic" style="position: absolute; top: 20px; margin: 4px ; color: rgb(205, 123, 150) ;"
+        <h1 class="display-1 font-italic" style="position: absolute; top: 20px; left: 400px; margin: 4px ; color: rgb(205, 123, 150) ;"
       >SEARCH COLLECT POINT</h1>
       <v-col cols="10" sm="2">
             <v-btn style="background-color: #000000 position: absolute; left: 35px;" @click="Logout" dark>LOG OUT
@@ -17,9 +17,9 @@
     </v-row>
 
     <v-row justify="center">
-      <v-col cols="4">
+      <v-col cols="4" sm="20">
           <v-row justify="center">
-            <v-col cols="10">
+            <v-col >
               <v-text-field
                 outlined
                 label="CUSTOMER TEL"
@@ -28,7 +28,7 @@
                 required
               ></v-text-field>
             </v-col>
-            <v-col cols="2">
+            <v-col>
               <div class="my-2">
                 
                 <v-dialog v-model="dialog" persistent max-width="290" >
@@ -69,7 +69,6 @@
 
 <script>
 import http from "../Api";
-
 export default {
   name: "searchCollect",
   data() {
@@ -92,7 +91,6 @@ export default {
       items:[]
     };
   },
-
   methods: {
     /* eslint-disable no-console */
     Logout(){
@@ -102,7 +100,6 @@ export default {
     Back(){
       this.$router.push({name: 'CollectPoint'});
     },
-
     getCollectPoints() {
       this.total = 0;
       if(this.searchCollect.customerTel == ""){
@@ -131,26 +128,18 @@ export default {
         });
     }
     },
-
     clear() {
       this.items = [];
       this.searchCollect.registerTel = "";
       this.total = 0;
-
     },
-
     refreshList() {
       this.getCollectPoints();
     }
-
     /* eslint-disable no-console */
-
   },
-
   mounted() {
     this.getCollectPoints();
   }
-
 };
-
 </script>
