@@ -1,6 +1,26 @@
 <template>
   <v-container>
-    <v-row>
+    <v-card color="teal lighten-5">
+    <v-row justify="center">
+          <v-col cols="10">
+            <v-btn @click="Dashboard" style="background-color:#52527a; position: absolute; left: 15px;"  dark>
+            <v-icon dark left>mdi-menu</v-icon>DASHBOARD
+            </v-btn>
+          </v-col>
+          <v-col cols="10" sm="2">
+            <v-btn style="background-color: #73264d; position: absolute; right: 15px;" @click="Show" dark>Show
+              <v-icon dark right>mdi-file-document-box</v-icon>
+            </v-btn>
+          </v-col>
+    </v-row>
+    <v-row justify="center">
+      <h1 class="text mt-5 pt-5"
+            style="text-align: center;
+            font: 40px BankGothic Md BT, sans-serif;
+            width: 100%;"><strong>PRODUCT</strong></h1>
+          <v-col></v-col>
+    </v-row>
+    <v-row justify="center">
       <v-col cols="12" sm="4">
         <p>Employee</p>
 
@@ -19,7 +39,7 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row justify="center">
       <v-col cols="12" sm="4">
         <p>Brand</p>
 
@@ -53,7 +73,7 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row justify="center">
       <v-col cols="12" sm="4">
         <p>Quantity</p>
         <v-text-field
@@ -85,17 +105,19 @@
           ></v-text-field>
         </v-col>
     </v-row>
-
-    <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveproduct" dark>Add Product
-        <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+    <v-row justify="center">
+      <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveproduct" dark>Add Product
+          <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
       </v-btn>
       <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
         <v-icon dark right>mdi-cancel</v-icon>
       </v-btn>
       <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
         <v-icon dark right>mdi-logout</v-icon>
-      </v-btn>
-    
+    </v-btn>
+    </v-row>
+     <v-col></v-col>
+ </v-card>
     
   </v-container>
 </template>
@@ -123,15 +145,18 @@ export default {
   },
   methods: {
     lockemployee(){
-      this.emid = this.$route.params.em;
-      this.product.employeeId  = this.emid;
+      this.product.employeeId  = JSON.parse(localStorage.getItem("id"));
       this.lock = true;
     },
-    /*back(){
-      this.$router.push({name: 'Dashboard' , params: {em: this.emid} }); 
-    },*/
     Logout(){
+      localStorage.setItem("id","");
       this.$router.push("/")
+    },
+    Show(){
+      this.$router.push("/ShowProduct")
+    },
+    Dashboard(){
+      this.$router.push("/Dashboard")
     },
     /* eslint-disable no-console */
     getEmployee() {
@@ -203,7 +228,7 @@ export default {
     },
     // function เมื่อกดปุ่มล้างข้อมูล
     clear() {
-      this.product.employeeId = null;
+      
       this.product.brandId = null;
       this.product.type_productId = null;
       this.product.quantity = null;
