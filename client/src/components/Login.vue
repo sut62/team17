@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div class="LoginPage" >
-         <v-card>
+         <v-card class="mx-auto" max-width="600">
           <h1 class="text mt-5 pt-5"><strong>Login</strong></h1>
           <v-form>
           <v-row justify="center">
@@ -25,7 +25,9 @@
           <v-row justify="center" class="pb-12 mb-10" >
             <v-dialog v-model="dialog" persistent max-width="290" >
               <template v-slot:activator="{ on }">
-                <v-btn v-on="on" @click="Login" class="cyan lighten-1 white--text">Login</v-btn>
+                <v-btn v-on="on" @click="Login" class="cyan lighten-1 white--text">Login
+                  <v-icon dark right>mdi-account-key</v-icon>
+                </v-btn>
               </template>
             <v-card>
               <v-card-title class="headline">notification</v-card-title>
@@ -106,4 +108,4 @@ h1.text {
   font: 30px BankGothic Md BT, sans-serif;
   width: 100%;
 }
-</style>>
+</style>
