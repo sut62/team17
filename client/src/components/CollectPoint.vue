@@ -1,14 +1,26 @@
 <template>
   <v-container>
     <v-card color="teal lighten-5">
-    <v-row justify="center">
-      <h1 class="display-1 font-italic" style="margin: 15px ; color: rgb(205, 123, 147) ;"
-      >COLLECT POINT</h1>
-    </v-row>
-    <v-row justify="center">
       
+    <v-row justify="center">
+      <v-col cols="10">
+            <v-btn @click="Back" style="background-color:SlateBlue; position: absolute; left: 15px;" dark>Back
+              <v-icon dark right>mdi-arrow-left-bold</v-icon>
+            </v-btn>
+        </v-col> 
+      <h1 class="display-1 font-italic" style="position: absolute; top: 20px; color: rgb(205, 123, 147) ;"
+      >COLLECT POINT</h1>
+      <v-col cols="10" sm="2">
+            <v-btn style="background-color: #000000 position: absolute; left: 35px;" @click="Logout" dark>LOG OUT
+              <v-icon dark right>mdi-logout</v-icon>
+            </v-btn>
+        </v-col>
+    </v-row>
+
+    <v-row justify="center">
       <v-col cols="12" sm="4">
         <p>Employee</p>
+        
         <v-overflow-btn
           :readonly="true"
           class="my-2"
@@ -90,23 +102,37 @@
     </v-row >
 
     <v-row justify="center">
-         <v-col cols="10" sm="2">
-            <v-btn @click="saveCollectPoint" color="green" dark>Collect
-              <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
-            </v-btn>
-            </v-col>
+      
         <v-col cols="10" sm="2">
-             <v-btn @click="clear" color="red" dark>Decline
-        <v-icon dark right>mdi-cancel</v-icon>
-      </v-btn>
+          <v-dialog v-model="dialog" persistent max-width="290" >
+           <template v-slot:activator="{ on }">
+            <v-btn v-on="on" @click="saveCollectPoint" color="green" dark>Collect
+              <v-icon dark right>mdi-content-save</v-icon>
+            </v-btn>
+           </template>
+          <v-card>
+            <v-card-title class="headline">notification</v-card-title>
+              <v-card-text v-if="suc" >Collect Success</v-card-text>
+              <v-card-text v-if="!suc" >Please Select All !!</v-card-text>
+                <v-card-actions><v-spacer></v-spacer>
+                  <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+                </v-card-actions>
+          </v-card>
+          </v-dialog>
         </v-col>
         <v-col cols="10" sm="2">
-        <v-btn style="background-color: #000000" @click="Logout" dark>LOG OUT
-        <v-icon dark right>mdi-logout</v-icon>
-      </v-btn>
-      </v-col>
-    </v-row >
-     </v-card>
+            <v-btn @click="clear" color="red" dark>Decline
+              <v-icon dark right>mdi-cancel</v-icon>
+            </v-btn>
+        </v-col>
+        <v-col cols="10" sm="2">
+            <v-btn style="background-color: DodgerBlue" @click="searchCollect" dark>SEARCH POINT
+              <v-icon dark right>mdi-magnify</v-icon>
+            </v-btn>
+        </v-col>  
+        
+    </v-row>
+    </v-card>
   </v-container>
 </template>
 
@@ -136,8 +162,9 @@ export default {
       paymentcus:[],
       collectPoints:[],
       pointprices:[],
-      emid: -99,
-      lock:false
+      lock:false,
+      dialog:false,
+      suc:null
 
     };
 
@@ -147,11 +174,19 @@ export default {
 
     /* eslint-disable no-console */
      lockemployee(){
-      this.emid = this.$route.params.em;
-      this.collectPoint.employeeId  = this.emid;
-      this.lock = true;
+       if(localStorage.getItem("id") != ""){   
+        this.collectPoint.employeeId  = JSON.parse(localStorage.getItem("id"));
+        this.lock = true;
+       }
+    },
+    searchCollect(){
+      this.$router.push({name: 'SearchCollect'});
+    }, 
+    Back(){
+      this.$router.push({name: 'Dashboard'});
     },
     Logout(){
+      localStorage.setItem("id","");
       this.$router.push("/")
     },
     getEmployees() {
@@ -267,7 +302,7 @@ export default {
       this.collectPoint.tpoint == ""||
       this.collectPoint.paymentId == "ไม่มีข้อมูล"||
       this.collectPoint.tpoint == "ไม่มีข้อมูล"){
-        alert("Please Select All !!");
+        this.suc = false;
         this.clear();}
       else{
       http
@@ -286,7 +321,7 @@ export default {
         )
         .then(response => {
           console.log(response);
-          alert("Collect Success");
+          this.suc = true;
           this.clear();
         })
         .catch(e => {
