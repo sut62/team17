@@ -31,23 +31,26 @@ public class Product {
     private  Integer quantity;
 
     @NotNull
+    @Positive
     @Column(name="PRICE")
     private  Integer price;
 
-    @NonNull
+    @NotNull
     @PastOrPresent
     @Column(name="DATE")
     private  LocalDateTime date;
 
-
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "Employee_ID", insertable = true)
     private Employee employee;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Brand.class)
     @JoinColumn(name = "Brand_ID", insertable = true)
     private Brand brand;
-
+    
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Type_Product.class)
     @JoinColumn(name = "Type_Product_ID", insertable = true)
     private Type_Product type_product;
