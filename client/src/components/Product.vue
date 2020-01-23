@@ -4,7 +4,7 @@
     <v-row justify="center">
           <v-col cols="10">
             <v-btn @click="Dashboard" style="background-color:#52527a; position: absolute; left: 15px;"  dark>
-            <v-icon dark left>mdi-menu</v-icon>DASHBOARD
+            <v-icon dark left>mdi-menu</v-icon>MENU
             </v-btn>
           </v-col>
           <v-col cols="10" sm="2">
