@@ -64,6 +64,111 @@ public class CollectPointTestCase {
     }
 
     @Test
+    void b6000042_testCustomerMustNotBeNull(){
+        CollectPoint col = new CollectPoint();
+        col.setDate(LocalDateTime.now());
+        col.setPoint(10);
+        col.setEmployee(employeeRepository.findById(2));
+        col.setCustomer(null);
+        col.setPointPrice(pointPriceRepository.findById(1));
+        col.setPayment(paymentRepository.findById(1));
+
+        Set<ConstraintViolation<CollectPoint>> result = validator.validate(col);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<CollectPoint> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("customer", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6000042_testEmployeeMustBeNotBeNull(){
+        CollectPoint col = new CollectPoint();
+        col.setDate(LocalDateTime.now());
+        col.setPoint(10);
+        col.setEmployee(null);
+        col.setCustomer(customerRepository.findById(1));
+        col.setPointPrice(pointPriceRepository.findById(1));
+        col.setPayment(paymentRepository.findById(1));
+
+        Set<ConstraintViolation<CollectPoint>> result = validator.validate(col);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<CollectPoint> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("employee", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6000042_testPointPriceMustNotBeNull(){
+        CollectPoint col = new CollectPoint();
+        col.setDate(LocalDateTime.now());
+        col.setPoint(10);
+        col.setEmployee(employeeRepository.findById(2));
+        col.setCustomer(customerRepository.findById(1));
+        col.setPointPrice(null);
+        col.setPayment(paymentRepository.findById(1));
+
+        Set<ConstraintViolation<CollectPoint>> result = validator.validate(col);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<CollectPoint> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("pointPrice", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6000042_testPaymentMustNotBeNull(){
+        CollectPoint col = new CollectPoint();
+        col.setDate(LocalDateTime.now());
+        col.setPoint(10);
+        col.setEmployee(employeeRepository.findById(2));
+        col.setCustomer(customerRepository.findById(1));
+        col.setPointPrice(pointPriceRepository.findById(1));
+        col.setPayment(null);
+
+        Set<ConstraintViolation<CollectPoint>> result = validator.validate(col);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<CollectPoint> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("payment", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6000042_testDateMustNotBeNull(){
+        CollectPoint col = new CollectPoint();
+        col.setDate(null);
+        col.setPoint(10);
+        col.setEmployee(employeeRepository.findById(2));
+        col.setCustomer(customerRepository.findById(1));
+        col.setPointPrice(pointPriceRepository.findById(1));
+        col.setPayment(paymentRepository.findById(1));
+
+        Set<ConstraintViolation<CollectPoint>> result = validator.validate(col);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<CollectPoint> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("date", v.getPropertyPath().toString());
+    }
+
+    @Test
     void b6000042_testPointMustNotBeNull() {
         CollectPoint col = new CollectPoint();
         col.setDate(LocalDateTime.now());
@@ -83,6 +188,7 @@ public class CollectPointTestCase {
         assertEquals("must not be null", v.getMessage());
         assertEquals("point", v.getPropertyPath().toString());
     }
+
     @Test
     void b6000042_testDateMustBePastOrPresent(){
         CollectPoint col = new CollectPoint();
@@ -103,6 +209,7 @@ public class CollectPointTestCase {
         assertEquals("must be a date in the past or in the present", v.getMessage());
         assertEquals("date", v.getPropertyPath().toString());
     }
+
     @Test
     void b6000042_testPointMustBeGreaterThanOrEqualsTo1() {
         CollectPoint col = new CollectPoint();
@@ -126,7 +233,7 @@ public class CollectPointTestCase {
 
     @Test
     void b6000042_testPaymentMustBeUnique() {
-        // สร้าง person object
+        // สร้าง CollectPoint object
         CollectPoint col = new CollectPoint();
         col.setDate(LocalDateTime.now());
         col.setPoint(10);
@@ -138,7 +245,7 @@ public class CollectPointTestCase {
 
         // คาดหวังว่า DataIntegrityViolationException จะถูก throw
         assertThrows(DataIntegrityViolationException.class, () -> {
-            // สร้าง person object ตัวที่ 2
+            // สร้าง CollectPoint object ตัวที่ 2
             CollectPoint col1 = new CollectPoint();
             col1.setDate(LocalDateTime.now());
             col1.setPoint(10);
@@ -149,5 +256,5 @@ public class CollectPointTestCase {
             collectPointRepository.saveAndFlush(col1);
         });
     }
-
+    
 }
