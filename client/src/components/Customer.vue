@@ -2,6 +2,12 @@
   <v-container>
     <v-card color="teal lighten-5">
     <v-row justify="center">
+      <v-btn rounded style="margin: 10px ; background-color:#52527a; position: absolute; left: 15px;" @click="Back" dark>DASHBOARD
+              <v-icon dark >mdi-menu</v-icon>
+      </v-btn>
+      <v-btn rounded style="margin: 10px ; background-color: #73264d; position: absolute; right: 15px;" @click="Search" dark>SEARCH
+        <v-icon dark right>mdi-account-search</v-icon>
+      </v-btn>
       <h1 class="text mt-5 pt-5"
       style="text-align: center;
       font: 40px BankGothic Md BT, sans-serif;
@@ -94,34 +100,30 @@
       </v-col>
     </v-row>
     
+
     <v-row justify="center">
-        <v-col cols="10" sm="2">
-          <v-dialog v-model="dialog" persistent max-width="290" >
-           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" @click="saveCustomer" color="green" dark>REGISTER
-              <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
-            </v-btn>
-           </template>
+      <v-dialog v-model="dialog" persistent max-width="290" >
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on" rounded style="margin: 10px ; background-color: #00C853" @click="saveCustomer" dark>REGISTER
+            <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
+          </v-btn>
+        </template>
           <v-card>
             <v-card-title class="headline">notification</v-card-title>
-              <v-card-text v-if="suc" >Register Success</v-card-text>
-              <v-card-text v-if="!suc" >Please Select All !!</v-card-text>
-                <v-card-actions><v-spacer></v-spacer>
-                  <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
-                </v-card-actions>
-          </v-card>
-          </v-dialog>
-        </v-col>
-        <v-col cols="10" sm="2">
-            <v-btn @click="clear" color="red" dark>Decline
-              <v-icon dark right>mdi-cancel</v-icon>
-            </v-btn>
-        </v-col>
-        <v-col cols="10" sm="2">
-            <v-btn style="background-color: #000000" @click="Logout" dark>LOG OUT
-              <v-icon dark right>mdi-logout</v-icon>
-            </v-btn>
-        </v-col>
+            <v-card-text v-if="suc" >บันทึกข้อมูลสำเร็จ</v-card-text>
+            <v-card-text v-if="!suc" >โปรดใส่ข้อมูลให้ครบถ้วน</v-card-text>
+            <v-card-actions><v-spacer></v-spacer>
+              <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+            </v-card-actions>
+          </v-card>  
+      </v-dialog>
+
+      <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
+        <v-icon dark right>mdi-cancel</v-icon>
+      </v-btn>
+      <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
+        <v-icon dark right>mdi-logout</v-icon>
+      </v-btn>
     </v-row>
     </v-card>
   </v-container>
@@ -146,8 +148,6 @@ export default {
       employees:[],
       titlenames:[],
       genders:[],
-      valid: false,
-      emid: -99,
       lock:false,
       dialog:false,
       suc:null
@@ -160,9 +160,12 @@ export default {
       this.customer.employeeId  = JSON.parse(localStorage.getItem("id"));
       this.lock = true;
     },
-    /*back(){
-      this.$router.push({name: 'Dashboard' , params: {em: this.emid} }); 
-    },*/
+    Search(){
+      this.$router.push("/SearchCustomer")
+    },
+    Back(){
+      this.$router.push("/Dashboard")
+    },
     Logout(){
       this.$router.push("/")
     },
