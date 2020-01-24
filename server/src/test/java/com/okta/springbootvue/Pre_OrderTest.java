@@ -141,6 +141,7 @@ public class Pre_OrderTest {
     void B6014551_testSaveComplete(){
 
         Pre_Order pre_order = new Pre_Order();
+
         TitleName titlename = titlenameRepository.findById(1);
         Brand brand = brandRepository.findById(2);
         Type_Product type_product = type_productRepository.findById(3);
@@ -159,8 +160,15 @@ public class Pre_OrderTest {
         pre_order = pre_orderRepository.saveAndFlush(pre_order);
 
         Optional<Pre_Order> found = pre_orderRepository.findById(pre_order.getId());
-        assertEquals("Chawee", found.get().getCus_name());
 
+        assertEquals("Chawee", found.get().getCus_name());
+        assertEquals("0957777773", found.get().getTel());
+        assertEquals(2, found.get().getQuantity());
+        assertEquals(titlename, found.get().getTitlename());
+        assertEquals(employee, found.get().getEmployee());
+        assertEquals(brand, found.get().getBrand());
+        assertEquals(type_product, found.get().getType_product());
+        assertEquals(now, found.get().getDate());
     }
 
 }
