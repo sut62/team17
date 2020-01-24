@@ -2,16 +2,31 @@
 <template>
   <v-container>
     
+
+    <v-col></v-col>
+    
       <v-card color="teal lighten-5">
-        <v-col></v-col>
-          <h1 class="text mt-5 pt-5"
-            style="text-align: center;
-            font: 40px BankGothic Md BT, sans-serif;
-            width: 100%;"><strong>PRE-ORDER</strong></h1>
-          <v-col></v-col>
+        <v-row justify="center">
+      <v-col cols="10">
+            <v-btn @click="Back" color="#584656" style=" position: absolute; left: 20px;" dark>
+              <v-icon dark >mdi-arrow-left-bold</v-icon>
+                Back
+            </v-btn>
+        </v-col> 
+        
+      <h1 class="display-2" style="position: absolute; top: 20px; color: #3b4255 ;"
+      ><strong>PRE-ORDER</strong></h1>
+
+      <v-col cols="10" sm="2">
+            <v-btn  @click="Logout" color ="#C53F52" style=" left: 45px;" dark>LOG OUT
+              <v-icon dark right>mdi-logout</v-icon>
+            </v-btn>
+        </v-col>
+    </v-row>
+    <v-col></v-col>
 
         <v-row justify="center">
-      <v-col cols="2" sm="5">
+      <v-col cols="10" sm="4">
         <v-select
           :readonly="true"
           v-model="Pre_Order.employeeId"
@@ -21,8 +36,8 @@
           item-value="id"
           outlined
         ></v-select>
-        </v-col>
-        </v-row>
+      </v-col>
+    </v-row>
 
     <v-row justify="center">
        <v-col class="" cols="6" sm="3">
@@ -91,32 +106,47 @@
         <v-text-field 
             :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
             required
+            outlined
             input type="Number"
             v-model="Pre_Order.quantity"
             label="Quantity"
-            min=1 max=10  
+            :min= 1
+            :max= 10  
           ></v-text-field>
         </v-col>
   </v-row>
     <v-col></v-col>
 
     <v-row justify="center">
-        
-         <div class="text-center">
-            <v-btn rounded style="margin: 10px; background-color: #00C853" @click = "savePre_Order" dark>CONFIRM
+        <v-col col="10" sm="2">
+          <v-dialog v-model="dialog" persistent max-width="290" >
+           <template v-slot:activator="{ on }">
+            <v-btn v-on="on" @click="savePre_Order" color="#408358" dark>Comfirm
               <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
             </v-btn>
+           </template>
+          <v-card>
+            <v-card-title class="headline">Notification</v-card-title>
+              <v-card-text v-if="suc" >Success</v-card-text>
+              <v-card-text v-if="!suc" >Please fill your information completely.</v-card-text>
+                <v-card-actions><v-spacer></v-spacer>
+                  <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+                </v-card-actions>
+          </v-card>
+          </v-dialog>
+        </v-col>
 
-            <v-btn rounded style="margin: 10px; background-color: #E53935" @click = "Clear" dark>clear
+        <v-col col="10" sm="2">
+            <v-btn @click="Clear" color="#c79799" dark>Clear
               <v-icon dark right>mdi-cancel</v-icon>
             </v-btn>
-            
-            <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
-              <v-icon dark right>mdi-logout</v-icon>
+        </v-col>
+
+        <v-col col="10" sm="2">
+            <v-btn @click="Show" color="#ffb55a" dark>Show Pre-order list
             </v-btn>
-         </div>
-        
-  </v-row>
+        </v-col>
+    </v-row>
 
   <v-col></v-col>
  </v-card>
@@ -146,17 +176,24 @@ export default {
         type_products: [],
         valid : false,
         emid: -99,
-        lock:false
+        lock:false,
+        dialog:false,
+        suc:null
     };
   },
   methods: {
     lockemployee(){
-      this.emid = this.$route.params.em;
-      this.Pre_Order.employeeId  = this.emid;
+      this.Pre_Order.employeeId  = JSON.parse(localStorage.getItem("id"));
       this.lock = true;
     },
     Logout(){
       this.$router.push("/")
+    },
+    Back(){
+      this.$router.push("/Dashboard")
+    },
+    Show(){
+      this.$router.push("/ShowPreOrder")
     },
     /* eslint-disable no-console */
     
@@ -198,7 +235,7 @@ export default {
     
     getType_Products() {
       http
-        .get("/type_product")
+        .get("/type_Product")
         .then(response => {
           this.type_products = response.data;
           console.log(response.data);
@@ -218,7 +255,8 @@ export default {
         !this.Pre_Order.type_productID ||
         !this.Pre_Order.quantity
       ) {
-        alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
+        this.suc = false;
+        this.clear();
       }
         else {
       http
@@ -240,14 +278,13 @@ export default {
           this.Pre_Order
         )
         .then(response => {
-          alert("บันทึกข้อมูลสำเร็จ!");
           console.log(response);
+          this.suc = true;
           this.Clear();
         })
         .catch(e => {
           console.log(e);
         });
-      this.submitted = true;
     }
     },
     Clear(){

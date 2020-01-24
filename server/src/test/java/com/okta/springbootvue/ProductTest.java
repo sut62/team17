@@ -63,6 +63,10 @@ public class ProductTest{
     Optional<Product> found = productRepository.findById(product.getId());
     assertEquals((int)1, (int)found.get().getQuantity());
     assertEquals((int)12, (int)found.get().getPrice());
+    assertEquals(employee, found.get().getEmployee());
+    assertEquals(brand, found.get().getBrand());
+    assertEquals(type_product, found.get().getType_product());
+    assertEquals(now, found.get().getDate());
   }
 
     @Test
