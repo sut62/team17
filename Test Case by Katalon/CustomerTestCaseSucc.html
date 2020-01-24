@@ -1,0 +1,56 @@
+import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
+import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
+import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
+import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
+import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
+import com.kms.katalon.core.checkpoint.CheckpointFactory as CheckpointFactory
+import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as MobileBuiltInKeywords
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.testcase.TestCase as TestCase
+import com.kms.katalon.core.testcase.TestCaseFactory as TestCaseFactory
+import com.kms.katalon.core.testdata.TestData as TestData
+import com.kms.katalon.core.testdata.TestDataFactory as TestDataFactory
+import com.kms.katalon.core.testobject.ObjectRepository as ObjectRepository
+import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WSBuiltInKeywords
+import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
+import internal.GlobalVariable as GlobalVariable
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
+import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
+
+import com.thoughtworks.selenium.Selenium
+import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.WebDriver
+import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium
+import static org.junit.Assert.*
+import java.util.regex.Pattern
+import static org.apache.commons.lang3.StringUtils.join
+
+WebUI.openBrowser('https://www.google.com/')
+def driver = DriverFactory.getWebDriver()
+String baseUrl = "https://www.google.com/"
+selenium = new WebDriverBackedSelenium(driver, baseUrl)
+selenium.open("http://localhost:8081/")
+selenium.click("id=input-9")
+selenium.type("id=input-9", "Somsak")
+selenium.click("id=input-12")
+selenium.type("id=input-12", "01234567")
+selenium.click("//button[@type='button']")
+selenium.click("//div[@id='app']/div/main/div/div[2]/div/form/div/button/span")
+selenium.click("//div[@id='1']/div/div/div/div/div")
+selenium.click("id=professor.-list-item-78")
+selenium.click("id=input-50")
+selenium.type("id=input-50", "ta")
+selenium.click("id=input-53")
+selenium.type("id=input-53", "orawee")
+selenium.click("//div[@id='4']/div/div/div/div")
+selenium.click("//div[@id='list-56']/div[2]/div")
+selenium.click("id=input-63")
+selenium.type("id=input-63", "BF2056")
+selenium.click("id=input-66")
+selenium.type("id=input-66", "0943018064")
+selenium.click("xpath=(//button[@type='button'])[3]")
+assertEquals("บันทึกข้อมูลสำเร็จ", selenium.getText("//div[@id='app']/div/div/div/div[2]"));
+selenium.click("//div[@id='app']/div/div/div/div[3]/button/span")
