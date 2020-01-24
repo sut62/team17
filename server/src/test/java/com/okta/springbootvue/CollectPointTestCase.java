@@ -60,6 +60,11 @@ public class CollectPointTestCase {
         col = collectPointRepository.saveAndFlush(col);
 
         Optional<CollectPoint> found = collectPointRepository.findById(col.getId());
+        assertEquals(col.getDate(), found.get().getDate());
+        assertEquals(col.getPoint(), found.get().getPoint());
+        assertEquals(employeeRepository.findById(2), found.get().getEmployee());
+        assertEquals(customerRepository.findById(1), found.get().getCustomer());
+        assertEquals(pointPriceRepository.findById(1), found.get().getPointPrice());
         assertEquals(paymentRepository.findById(2), found.get().getPayment());
     }
 
