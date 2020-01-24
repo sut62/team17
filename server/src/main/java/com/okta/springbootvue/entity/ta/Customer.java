@@ -11,9 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import com.okta.springbootvue.entity.oil.Employee;
 import com.okta.springbootvue.entity.oil.Gender;
@@ -22,7 +20,9 @@ import com.okta.springbootvue.entity.ta.TitleName;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="CUSTOMER")
+@Table(name="CUSTOMER",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"TEL"})
+)
 public class Customer {
 
     @Id
@@ -41,6 +41,7 @@ public class Customer {
     private String name;
 
     @NotNull
+    @Size(min = 2 ,max = 30)
     @Column(name="LASTNAME")
     private String lname;
 
