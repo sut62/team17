@@ -4,12 +4,7 @@
     <v-row justify="center">
           <v-col cols="10">
             <v-btn @click="Dashboard" style="background-color:#52527a; position: absolute; left: 15px;"  dark>
-            <v-icon dark left>mdi-menu</v-icon>MENU
-            </v-btn>
-          </v-col>
-          <v-col cols="10" sm="2">
-            <v-btn style="background-color: #73264d; position: absolute; right: 15px;" @click="Show" dark>Show
-              <v-icon dark right>mdi-file-document-box</v-icon>
+            <v-icon dark left>mdi-menu</v-icon>MUNU
             </v-btn>
           </v-col>
     </v-row>
@@ -40,10 +35,10 @@
     </v-row>
 
     <v-row justify="center">
-      <v-col cols="12" sm="4">
+      <v-col id = "1" cols="12" sm="4">
         <p>Brand</p>
 
-        <v-select
+        <v-select 
           class="my-2"
           outlined
           v-model="product.brandId"
@@ -56,7 +51,7 @@
         ></v-select>
       </v-col>
 
-      <v-col cols="12" sm="4">
+      <v-col id = "2" cols="12" sm="4">
         <p>Type Product</p>
 
         <v-select
@@ -105,16 +100,30 @@
           ></v-text-field>
         </v-col>
     </v-row>
+    
+
     <v-row justify="center">
-      <v-btn rounded style="margin: 10px ; background-color: #00C853" @click="saveproduct" dark>Add Product
+    <v-dialog v-model="dialog" persistent max-width="290" >
+    <template v-slot:activator="{ on }">
+      <v-btn v-on="on" rounded style="margin: 10px ; background-color: #00C853" @click="saveproduct" dark>Add Product
           <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
       </v-btn>
-      <v-btn rounded style="margin: 10px ; background-color: #E53935" @click="clear" dark>CLEAR
-        <v-icon dark right>mdi-cancel</v-icon>
-      </v-btn>
-      <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
-        <v-icon dark right>mdi-logout</v-icon>
-    </v-btn>
+    </template>
+       <v-card>
+            <v-card-title class="headline">notification</v-card-title>
+            <v-card-text v-if="suc" >ทำรายการเสร็จสิ้น</v-card-text>
+            <v-card-text v-if="!suc" >กรุณากรอกข้อมูลให้ครบ!</v-card-text>
+            <v-card-actions><v-spacer></v-spacer>
+              <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+            </v-card-actions>
+          </v-card>  
+     </v-dialog>
+        <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
+          <v-icon dark right>mdi-logout</v-icon>
+        </v-btn>
+        <v-btn rounded style="margin: 10px ; background-color: #73264d" @click="Show" dark>Show
+          <v-icon dark right>mdi-file-document-box</v-icon>
+        </v-btn>
     </v-row>
      <v-col></v-col>
  </v-card>
@@ -139,7 +148,9 @@ export default {
       brands: [],
       type_products: [],
       emid: -99,
-      lock:false
+      lock:false,
+      dialog:false,
+      suc:false
       
     };
   },
@@ -201,7 +212,8 @@ export default {
         !this.product.quantity ||
         !this.product.price
       ) {
-        alert("กรุณากรอกข้อมูลให้ครบ!");
+        this.suc = false;
+        this.clear();
       }else {
         http
           .post(
@@ -217,9 +229,10 @@ export default {
               this.product.price,
             this.product
           )
-          .then(response => {
-            alert("ทำรายการเสร็จสิ้น");
+         .then(response => {
             console.log(response);
+            this.suc = true;
+            this.clear();
           })
           .catch(e => {
             console.log(e);
