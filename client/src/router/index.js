@@ -4,6 +4,7 @@ import Login from '../components/Login'
 import Dashboard from '../components/Dashboard'
 import Employee from '../components/Employee'
 import PreOrder from '../components/PreOrder'
+import ShowPreOrder from '../components/ShowPreOrder'
 import Product from '../components/Product'
 import ShowProduct from '../components/ShowProduct'
 import Customer from '../components/Customer'
@@ -61,6 +62,11 @@ export default new Router({
       path: '/PreOrder',
       name:'PreOrder',
       component: PreOrder
+    },
+    {
+      path: '/ShowPreOrder',
+      name:'ShowPreOrder',
+      component: ShowPreOrder
     },
     {
       path: '/SearchCollect',
