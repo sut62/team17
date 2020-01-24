@@ -40,7 +40,7 @@
     </v-row>
 
     <v-row justify="center">
-       <v-col class="" cols="6" sm="3">
+       <v-col id ="1" class="" cols="6" sm="3">
         <v-select
           :items="titlenames"
           item-text="title"
@@ -76,7 +76,7 @@
   </v-row>
 
   <v-row justify="center">
-      <v-col cols="2" sm="3">
+      <v-col id="2" cols="2" sm="3">
         <v-select
           :items="brands"
           item-text="name"
@@ -89,7 +89,7 @@
         ></v-select>
         </v-col>
 
-        <v-col cols="2" sm="3">
+        <v-col id="3" cols="2" sm="3">
         <v-select
           :items="type_products"
           item-text="name"
@@ -102,16 +102,14 @@
         ></v-select>
         </v-col>
 
-        <v-col cols="2" sm="3">
+        <v-col id="4" cols="2" sm="3">
         <v-text-field 
             :rules="[(v) => !!v || 'กรุณาใส่ข้อมูล']"
             required
-            outlined
-            input type="Number"
+
             v-model="Pre_Order.quantity"
             label="Quantity"
-            :min= 1
-            :max= 10  
+            outlined
           ></v-text-field>
         </v-col>
   </v-row>

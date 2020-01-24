@@ -25,7 +25,7 @@ public class Pre_Order {
     @Column(name = "PRE_ORDER_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
-    @Size(min=3, max=30)
+
     @Column(name="CUS_NAME")
     private @NotNull String cus_name;
 
