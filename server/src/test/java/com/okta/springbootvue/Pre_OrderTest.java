@@ -8,8 +8,6 @@ import com.okta.springbootvue.repository.ta.*;
 import com.okta.springbootvue.entity.apple.*;
 import com.okta.springbootvue.repository.apple.*;
 
-import java.time.LocalDateTime;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.time.LocalDateTime;
 
 
 @DataJpaTest
@@ -64,6 +63,7 @@ public class Pre_OrderTest {
         pre_order.setTel("09562x9763");
         pre_order.setQuantity(2);
         pre_order.setEmployee(employee);
+        pre_order.setTitlename(titlename);
         pre_order.setBrand(brand);
         pre_order.setType_product(type_product);
         pre_order.setDate(now);
@@ -80,7 +80,7 @@ public class Pre_OrderTest {
     }
 
     @Test
-    void B6014551_testPre_OrderNotBeNullCase(){
+    void B6014551_testCus_nameNotBeNull(){
 
         TitleName titlename = titlenameRepository.findById(1);
         Brand brand = brandRepository.findById(2);
@@ -93,6 +93,7 @@ public class Pre_OrderTest {
         pre_order.setTel("0951239763");
         pre_order.setQuantity(2);
         pre_order.setEmployee(employee);
+        pre_order.setTitlename(titlename);
         pre_order.setBrand(brand);
         pre_order.setType_product(type_product);
         pre_order.setDate(now);
@@ -109,6 +110,182 @@ public class Pre_OrderTest {
     }
 
     @Test
+    void B6014551_testTelNotBeNull(){
+
+        TitleName titlename = titlenameRepository.findById(1);
+        Brand brand = brandRepository.findById(2);
+        Type_Product type_product = type_productRepository.findById(3);
+        Employee employee = employeeRepository.findById(2);
+        LocalDateTime now = LocalDateTime.now();
+    
+        Pre_Order pre_order = new Pre_Order();
+        pre_order.setCus_name("Chanwit");
+        pre_order.setTel(null);
+        pre_order.setQuantity(2);
+        pre_order.setEmployee(employee);
+        pre_order.setTitlename(titlename);
+        pre_order.setBrand(brand);
+        pre_order.setType_product(type_product);
+        pre_order.setDate(now);
+
+        Set<ConstraintViolation<Pre_Order>> result = validator.validate(pre_order);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Pre_Order> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("tel", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B6014551_testQuantityNotBeNull(){
+        
+        TitleName titlename = titlenameRepository.findById(1);
+        Brand brand = brandRepository.findById(2);
+        Type_Product type_product = type_productRepository.findById(3);
+        Employee employee = employeeRepository.findById(2);
+        LocalDateTime now = LocalDateTime.now();
+    
+        Pre_Order pre_order = new Pre_Order();
+        pre_order.setCus_name("Chawee");
+        pre_order.setTel("0951239763");
+        pre_order.setQuantity(null);
+        pre_order.setEmployee(employee);
+        pre_order.setTitlename(titlename);
+        pre_order.setBrand(brand);
+        pre_order.setType_product(type_product);
+        pre_order.setDate(now);
+
+        Set<ConstraintViolation<Pre_Order>> result = validator.validate(pre_order);
+        assertEquals(1, result.size());
+
+        ConstraintViolation<Pre_Order> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("quantity", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B6014551_testEmployeeNotBeNull(){
+
+        TitleName titlename = titlenameRepository.findById(1);
+        Brand brand = brandRepository.findById(2);
+        Type_Product type_product = type_productRepository.findById(3);
+        Employee employee = employeeRepository.findById(2);
+        LocalDateTime now = LocalDateTime.now();
+    
+        Pre_Order pre_order = new Pre_Order();
+        pre_order.setCus_name("Chanwee");
+        pre_order.setTel("0951239763");
+        pre_order.setQuantity(2);
+        pre_order.setEmployee(null);
+        pre_order.setTitlename(titlename);
+        pre_order.setBrand(brand);
+        pre_order.setType_product(type_product);
+        pre_order.setDate(now);
+
+        Set<ConstraintViolation<Pre_Order>> result = validator.validate(pre_order);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Pre_Order> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("employee", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B6014551_testBrandNotBeNull(){
+
+        TitleName titlename = titlenameRepository.findById(1);
+        Brand brand = brandRepository.findById(2);
+        Type_Product type_product = type_productRepository.findById(3);
+        Employee employee = employeeRepository.findById(2);
+        LocalDateTime now = LocalDateTime.now();
+    
+        Pre_Order pre_order = new Pre_Order();
+        pre_order.setCus_name("Chanwee");
+        pre_order.setTel("0951239763");
+        pre_order.setQuantity(2);
+        pre_order.setEmployee(employee);
+        pre_order.setTitlename(titlename);
+        pre_order.setBrand(null);
+        pre_order.setType_product(type_product);
+        pre_order.setDate(now);
+
+        Set<ConstraintViolation<Pre_Order>> result = validator.validate(pre_order);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Pre_Order> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("brand", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B6014551_testType_ProductNotBeNull(){
+
+        TitleName titlename = titlenameRepository.findById(1);
+        Brand brand = brandRepository.findById(2);
+        Type_Product type_product = type_productRepository.findById(3);
+        Employee employee = employeeRepository.findById(2);
+        LocalDateTime now = LocalDateTime.now();
+    
+        Pre_Order pre_order = new Pre_Order();
+        pre_order.setCus_name("Chanwee");
+        pre_order.setTel("0951239763");
+        pre_order.setQuantity(2);
+        pre_order.setEmployee(employee);
+        pre_order.setTitlename(titlename);
+        pre_order.setBrand(brand);
+        pre_order.setType_product(null);
+        pre_order.setDate(now);
+
+        Set<ConstraintViolation<Pre_Order>> result = validator.validate(pre_order);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Pre_Order> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("type_product", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B6014551_testDateNotBeNull(){
+        TitleName titlename = titlenameRepository.findById(1);
+        Brand brand = brandRepository.findById(2);
+        Type_Product type_product = type_productRepository.findById(3);
+        Employee employee = employeeRepository.findById(2);
+        LocalDateTime now = LocalDateTime.now();
+    
+        Pre_Order pre_order = new Pre_Order();
+        
+        pre_order.setCus_name("Chanwee");
+        pre_order.setTel("0951239763");
+        pre_order.setQuantity(1);
+        pre_order.setEmployee(employee);
+        pre_order.setTitlename(titlename);
+        pre_order.setBrand(brand);
+        pre_order.setType_product(type_product);
+        pre_order.setDate(null);
+        
+
+        Set<ConstraintViolation<Pre_Order>> result = validator.validate(pre_order);
+
+        assertEquals(1, result.size());
+
+        ConstraintViolation<Pre_Order> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("date", v.getPropertyPath().toString());
+    }
+
+    @Test
     void B6014551_testQuantityGreaterThan0(){
 
         TitleName titlename = titlenameRepository.findById(1);
@@ -122,6 +299,7 @@ public class Pre_OrderTest {
         pre_order.setTel("0951239763");
         pre_order.setQuantity(0);
         pre_order.setEmployee(employee);
+        pre_order.setTitlename(titlename);
         pre_order.setBrand(brand);
         pre_order.setType_product(type_product);
         pre_order.setDate(now);
@@ -163,7 +341,7 @@ public class Pre_OrderTest {
 
         assertEquals("Chawee", found.get().getCus_name());
         assertEquals("0957777773", found.get().getTel());
-        assertEquals(2, found.get().getQuantity());
+        assertEquals((int)2, (int)found.get().getQuantity());
         assertEquals(titlename, found.get().getTitlename());
         assertEquals(employee, found.get().getEmployee());
         assertEquals(brand, found.get().getBrand());
@@ -174,21 +352,3 @@ public class Pre_OrderTest {
   
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

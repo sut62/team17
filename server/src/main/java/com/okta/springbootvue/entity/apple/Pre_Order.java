@@ -25,35 +25,40 @@ public class Pre_Order {
     @Column(name = "PRE_ORDER_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
-
+    @Size(min=3, max=30)
     @Column(name="CUS_NAME")
     private @NotNull String cus_name;
 
-
+    @NotNull
     @Column(name="DATE")
-    private @NonNull LocalDateTime Date;
+    private LocalDateTime date;
 
+    @NotNull
     @Pattern(regexp = "\\d{10}")
     @Column(name="TEL")
-    private @NotNull String tel;
+    private String tel;
 
+    @NotNull
     @Positive
     @Column(name="QUANTITY")
-    private @NotNull int quantity;
+    private Integer quantity;
 
-    
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
     private Employee employee;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = TitleName.class)
     @JoinColumn(name = "TITLENAME_ID", insertable = true)
     private TitleName titlename;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Brand.class)
     @JoinColumn(name = "BRAND_ID", insertable = true)
     private Brand brand;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Type_Product.class)
     @JoinColumn(name = "TYPE_PRODUCT_ID", insertable = true)
     private Type_Product type_product;
