@@ -58,7 +58,7 @@ public class Pre_OrderController {
     @PathVariable String tel,
     @PathVariable long brandID,
     @PathVariable long type_productID,
-    @PathVariable int quantity) {
+    @PathVariable Integer quantity) {
 
     TitleName titlename = titlenameRepository.findById(titlenameID);
     Brand brand = brandRepository.findById(brandID);
