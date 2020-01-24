@@ -24,7 +24,7 @@
             <v-btn @click="Logout" class="red white--text">Logout</v-btn>
         </v-row>
         <p></p>
-        <v-row></v-row>
+       <v-col></v-col>
     </v-form>
     </v-card>
 </v-container>
@@ -38,7 +38,7 @@ export default {
             this.$router.push("/")
         },
         Register(){
-            this.$router.push({name: 'Register'});
+            this.$router.push({name: 'Customer'});
         },
         Product(){
             this.$router.push({name: 'Product'});
