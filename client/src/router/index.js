@@ -11,6 +11,7 @@ import Customer from '../components/Customer'
 import CollectPoint from '../components/CollectPoint'
 import SearchSale from '../components/SearchSale'
 import SearchCollect from '../components/SearchCollect'
+import SearchCustomer from '../components/SearchCustomer'
 
 Vue.use(Router)
 
@@ -67,6 +68,11 @@ export default new Router({
       path: '/ShowPreOrder',
       name:'ShowPreOrder',
       component: ShowPreOrder
+    },
+    {
+      path: '/SearchCustomer',
+      name:'SearchCustomer',
+      component: SearchCustomer
     },
     {
       path: '/SearchCollect',
