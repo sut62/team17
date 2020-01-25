@@ -5,7 +5,7 @@
     <v-form>
         <p></p>
         <v-row justify="center">
-            <v-btn @click="Register" class="cyan lighten-1 white--text">Register</v-btn>
+            <v-btn @click="Customer" class="cyan lighten-1 white--text">Register Customer</v-btn>
         </v-row>
         <p></p>
         <v-row justify="center">
@@ -37,8 +37,8 @@ export default {
             localStorage.setItem("id","");
             this.$router.push("/")
         },
-        Register(){
-            this.$router.push({name: 'Customer'});
+        Customer(){
+            this.$router.push({name: 'Customer' });
         },
         Product(){
             this.$router.push({name: 'Product'});

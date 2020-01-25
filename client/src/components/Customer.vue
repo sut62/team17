@@ -2,8 +2,8 @@
   <v-container>
     <v-card color="teal lighten-5">
     <v-row justify="center">
-      <v-btn rounded style="margin: 10px ; background-color:#52527a; position: absolute; left: 15px;" @click="Back" dark>DASHBOARD
-              <v-icon dark >mdi-menu</v-icon>
+      <v-btn rounded style="margin: 10px ; background-color:#52527a; position: absolute; left: 15px;" @click="Back" dark>BACK
+              <v-icon dark >mdi-arrow-left</v-icon>
       </v-btn>
       <v-btn rounded style="margin: 10px ; background-color: #73264d; position: absolute; right: 15px;" @click="Search" dark>SEARCH
         <v-icon dark right>mdi-account-search</v-icon>
