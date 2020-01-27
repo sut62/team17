@@ -147,6 +147,81 @@ public class EmployeeTests {
     }
 
     @Test
+    void b6018221_testGenderMustNotBeNull() {
+        Employee employee = new Employee();
+        LocalDateTime now = LocalDateTime.now();
+        Type type = typeRepository.findById(2);
+        Vacancy vacancy = vacancyRepository.findById(2);
+
+        employee.setDate(now);
+        employee.setUsername("ta");
+        employee.setPassword("12345678");
+        employee.setGender(null);
+        employee.setType(type);
+        employee.setVacancy(vacancy);
+
+        Set<ConstraintViolation<Employee>> result = validator.validate(employee);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Employee> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("gender", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6018221_testTypeMustNotBeNull() {
+        Employee employee = new Employee();
+        LocalDateTime now = LocalDateTime.now();
+        Gender gender = genderRepository.findById(2);
+        Vacancy vacancy = vacancyRepository.findById(2);
+
+        employee.setDate(now);
+        employee.setUsername("ta");
+        employee.setPassword("12345678");
+        employee.setGender(gender);
+        employee.setType(null);
+        employee.setVacancy(vacancy);
+
+        Set<ConstraintViolation<Employee>> result = validator.validate(employee);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Employee> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("type", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6018221_testVacancyMustNotBeNull() {
+        Employee employee = new Employee();
+        LocalDateTime now = LocalDateTime.now();
+        Gender gender = genderRepository.findById(2);
+        Type type = typeRepository.findById(2);
+
+        employee.setDate(now);
+        employee.setUsername("ta");
+        employee.setPassword("12345678");
+        employee.setGender(gender);
+        employee.setType(type);
+        employee.setVacancy(null);
+
+        Set<ConstraintViolation<Employee>> result = validator.validate(employee);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Employee> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("vacancy", v.getPropertyPath().toString());
+    }
+
+    @Test
     void b6018221_testPasswordLessThan8Alphabets() {
         Employee employee = new Employee();
         LocalDateTime now = LocalDateTime.now();
