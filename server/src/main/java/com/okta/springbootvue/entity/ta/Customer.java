@@ -54,14 +54,17 @@ public class Customer {
     @Column(name="TEL")
     private String tel;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = TitleName.class)
     @JoinColumn(name = "TITLENAME_ID", insertable = true)
     private TitleName titlename;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EM_ID", insertable = true)
     private Employee employee;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Gender.class)
     @JoinColumn(name = "GENDER_ID", insertable = true)
     private Gender gender;

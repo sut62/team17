@@ -174,10 +174,16 @@ public class CustomerTest {
     void b6002008_testCustomerNameMustSizeLessThan2() { 
         Customer customer = new Customer();
         LocalDateTime now = LocalDateTime.now();
+        Employee employee = employeeRepository.findById(2);
+        TitleName titlename = titlenameRepository.findById(2);
+        Gender gender = genderRepository.findById(2);
         customer.setDate(now);
+        customer.setEmployee(employee);
+        customer.setTitlename(titlename);
         customer.setName("C");
         customer.setLname("Kaka");
-        customer.setAddress("บ้านสุรนารี");
+        customer.setGender(gender);
+        customer.setAddress("BA108 Suranaree");
         customer.setTel("0873018064");
 
         Set<ConstraintViolation<Customer>> result = validator.validate(customer);
@@ -218,10 +224,16 @@ public class CustomerTest {
     void b6002008_testCustomerLnameMustSizeLessThan2() { 
         Customer customer = new Customer();
         LocalDateTime now = LocalDateTime.now();
+        Employee employee = employeeRepository.findById(2);
+        TitleName titlename = titlenameRepository.findById(2);
+        Gender gender = genderRepository.findById(2);
         customer.setDate(now);
+        customer.setEmployee(employee);
+        customer.setTitlename(titlename);
         customer.setName("Caca");
         customer.setLname("K");
-        customer.setAddress("บ้านสุรนารี");
+        customer.setGender(gender);
+        customer.setAddress("BA108 Suranaree");
         customer.setTel("0873018064");
 
         Set<ConstraintViolation<Customer>> result = validator.validate(customer);
@@ -237,9 +249,15 @@ public class CustomerTest {
     void b6002008_testTelMustBeUnique() { 
         Customer c1 = new Customer();
         LocalDateTime now = LocalDateTime.now();
+        Employee e1 = employeeRepository.findById(2);
+        TitleName t1 = titlenameRepository.findById(2);
+        Gender g1 = genderRepository.findById(2);
         c1.setDate(now);
+        c1.setEmployee(e1);
+        c1.setTitlename(t1);
         c1.setName("Caca");
         c1.setLname("Kaka");
+        c1.setGender(g1);
         c1.setAddress("บ้านสุรนารี");
         c1.setTel("0873018064");
 
@@ -249,11 +267,18 @@ public class CustomerTest {
         assertThrows(DataIntegrityViolationException.class, () -> {
             // สร้าง customer object ตัวที่ 2
         Customer c2 = new Customer();
+        Employee e2 = employeeRepository.findById(2);
+        TitleName t2 = titlenameRepository.findById(2);
+        Gender g2 = genderRepository.findById(2);
         c2.setDate(now);
+        c2.setEmployee(e2);
+        c2.setTitlename(t2);
         c2.setName("Caca");
         c2.setLname("Kaka");
+        c2.setGender(g2);
         c2.setAddress("บ้านสุรนารี");
         c2.setTel("0873018064");
+
 
          customerRepository.saveAndFlush(c2);
         });
@@ -282,6 +307,81 @@ public class CustomerTest {
         ConstraintViolation<Customer> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
         assertEquals("date", v.getPropertyPath().toString());
+    }
+
+    @Test  //employee ห้ามว่าง
+    void b6002008_testEmployeeNotBeNull() { 
+        Customer customer = new Customer();
+        LocalDateTime now = LocalDateTime.now();
+        Employee employee = employeeRepository.findById(2);
+        TitleName titlename = titlenameRepository.findById(2);
+        Gender gender = genderRepository.findById(2);
+        customer.setDate(now);
+        customer.setEmployee(null);
+        customer.setTitlename(titlename);
+        customer.setName("Caca");
+        customer.setLname("Kaka");
+        customer.setGender(gender);
+        customer.setAddress("BA108 Suranaree");
+        customer.setTel("0873018064");
+
+        Set<ConstraintViolation<Customer>> result = validator.validate(customer);
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Customer> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("employee", v.getPropertyPath().toString());
+    }
+
+    @Test  //TitleName ห้ามว่าง
+    void b6002008_testTitleNameNotBeNull() { 
+        Customer customer = new Customer();
+        LocalDateTime now = LocalDateTime.now();
+        Employee employee = employeeRepository.findById(2);
+        TitleName titlename = titlenameRepository.findById(2);
+        Gender gender = genderRepository.findById(2);
+        customer.setDate(now);
+        customer.setEmployee(employee);
+        customer.setTitlename(null);
+        customer.setName("Caca");
+        customer.setLname("Kaka");
+        customer.setGender(gender);
+        customer.setAddress("BA108 Suranaree");
+        customer.setTel("0873018064");
+
+        Set<ConstraintViolation<Customer>> result = validator.validate(customer);
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Customer> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("titlename", v.getPropertyPath().toString());
+    }
+
+    @Test  //Gender ห้ามว่าง
+    void b6002008_testGenderNotBeNull() { 
+        Customer customer = new Customer();
+        LocalDateTime now = LocalDateTime.now();
+        Employee employee = employeeRepository.findById(2);
+        TitleName titlename = titlenameRepository.findById(2);
+        Gender gender = genderRepository.findById(2);
+        customer.setDate(now);
+        customer.setEmployee(employee);
+        customer.setTitlename(titlename);
+        customer.setName("Caca");
+        customer.setLname("Kaka");
+        customer.setGender(null);
+        customer.setAddress("BA108 Suranaree");
+        customer.setTel("0873018064");
+
+        Set<ConstraintViolation<Customer>> result = validator.validate(customer);
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Customer> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("gender", v.getPropertyPath().toString());
     }
 
 }
