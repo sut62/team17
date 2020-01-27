@@ -54,9 +54,12 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-    <v-btn rounded style="margin: 10px ; background-color:#334b48" @click="Back" dark>BACK
-        <v-icon dark >mdi-arrow-left</v-icon>
-    </v-btn>
+        <v-btn rounded style="margin: 10px ; background-color:#334b48" @click="Back" dark>BACK
+        <v-icon dark left>mdi-arrow-left</v-icon>
+        </v-btn>
+        <v-btn rounded style="margin: 10px ; background-color: #000000" @click="Logout" dark>LOG OUT
+        <v-icon dark right>mdi-logout</v-icon>
+        </v-btn>
     </v-row>
     </v-card>
   </v-container>
@@ -88,6 +91,9 @@ export default {
   methods: {
     Back(){
       this.$router.push("/Customer")
+    },
+    Logout(){
+      this.$router.push("/")
     },
     /* eslint-disable no-console */
 
