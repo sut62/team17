@@ -37,14 +37,17 @@ public class Employee {
     @Column(name="PASSWORD")
     private String password;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Gender.class)
     @JoinColumn(name = "GENDER_ID", insertable = true)
     private Gender gender;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Type.class)
     @JoinColumn(name = "TYPE_ID", insertable = true)
     private Type type;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Vacancy.class)
     @JoinColumn(name = "VACANCY_ID", insertable = true)
     private Vacancy vacancy;
