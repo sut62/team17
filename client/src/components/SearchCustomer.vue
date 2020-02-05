@@ -76,8 +76,10 @@ export default {
         tel:""
       },
       headers: [
+        { text: "TITLE NAME", value: "titlename.title" },
         { text: "NAME", value: "name" },
         { text: "LAST NAME", value: "lname" },
+        { text: "GENDER", value: "gender.gender" },
         { text: "ADDRESS", value: "address" },
         { text: "CREATED BY", value: "employee.username" },
         { text: "DATE CREATE", value: "date" }
