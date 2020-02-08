@@ -33,10 +33,11 @@ def driver = DriverFactory.getWebDriver()
 String baseUrl = "https://www.google.com/"
 selenium = new WebDriverBackedSelenium(driver, baseUrl)
 selenium.open("http://localhost:8080/")
-selenium.click("id=input-9")
 selenium.type("id=input-9", "Somsak")
 selenium.click("id=input-12")
 selenium.type("id=input-12", "01234567")
 selenium.click("//div[@id='app']/div/main/div/div[2]/div/div/form/div[3]/button/span")
 selenium.click("//div[@id='app']/div/main/div/div[2]/div/form/div[2]/button/span")
 selenium.click("//div[@id='app']/div/main/div/div[2]/div/div[6]/button[3]/span")
+selenium.click("//div[@id='app']/div/main/div/div[2]/div/div[2]/div/div/div/table/tbody/tr/td[2]")
+assertEquals("Somsak", selenium.getText("//div[@id='app']/div/main/div/div[2]/div/div[2]/div/div/div/table/tbody/tr/td[2]"));
