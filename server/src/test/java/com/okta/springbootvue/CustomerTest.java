@@ -171,7 +171,7 @@ public class CustomerTest {
     }
 
     @Test  //ชื่อห้ามน้อยกว่า 2 ตัว
-    void b6002008_testCustomerNameMustSizeLessThan2() { 
+    void b6002008_testCustomerNameLessThan2() { 
         Customer customer = new Customer();
         LocalDateTime now = LocalDateTime.now();
         Employee employee = employeeRepository.findById(2);
@@ -195,8 +195,33 @@ public class CustomerTest {
         assertEquals("name", v.getPropertyPath().toString());
     }
 
+    @Test  //ชื่อห้ามมากกว่า 30 ตัว
+    void b6002008_testCustomerNameMoreThan30() { 
+        Customer customer = new Customer();
+        LocalDateTime now = LocalDateTime.now();
+        Employee employee = employeeRepository.findById(2);
+        TitleName titlename = titlenameRepository.findById(2);
+        Gender gender = genderRepository.findById(2);
+        customer.setDate(now);
+        customer.setEmployee(employee);
+        customer.setTitlename(titlename);
+        customer.setName("abcdefghijklmnopqrstuvwxyzabcde");
+        customer.setLname("Kaka");
+        customer.setGender(gender);
+        customer.setAddress("BA108 Suranaree");
+        customer.setTel("0873018064");
+
+        Set<ConstraintViolation<Customer>> result = validator.validate(customer);
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Customer> v = result.iterator().next();
+        assertEquals("size must be between 2 and 30", v.getMessage());
+        assertEquals("name", v.getPropertyPath().toString());
+    }
+
     @Test  //นามสกุลห้ามว่าง
-    void b6002008_testCustomerLameMustNotBeNull() { 
+    void b6002008_testCustomerLnameMustNotBeNull() { 
         Customer customer = new Customer();
         LocalDateTime now = LocalDateTime.now();
         Employee employee = employeeRepository.findById(2);
@@ -221,7 +246,7 @@ public class CustomerTest {
     }
 
     @Test  //นามสกุลห้ามน้อยกว่า 2 ตัว
-    void b6002008_testCustomerLnameMustSizeLessThan2() { 
+    void b6002008_testCustomerLnameLessThan2() { 
         Customer customer = new Customer();
         LocalDateTime now = LocalDateTime.now();
         Employee employee = employeeRepository.findById(2);
@@ -232,6 +257,31 @@ public class CustomerTest {
         customer.setTitlename(titlename);
         customer.setName("Caca");
         customer.setLname("K");
+        customer.setGender(gender);
+        customer.setAddress("BA108 Suranaree");
+        customer.setTel("0873018064");
+
+        Set<ConstraintViolation<Customer>> result = validator.validate(customer);
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Customer> v = result.iterator().next();
+        assertEquals("size must be between 2 and 30", v.getMessage());
+        assertEquals("lname", v.getPropertyPath().toString());
+    }
+
+    @Test  //นามสกุลมากกว่า 30 ตัว
+    void b6002008_testCustomerLnameMoreThan30() { 
+        Customer customer = new Customer();
+        LocalDateTime now = LocalDateTime.now();
+        Employee employee = employeeRepository.findById(2);
+        TitleName titlename = titlenameRepository.findById(2);
+        Gender gender = genderRepository.findById(2);
+        customer.setDate(now);
+        customer.setEmployee(employee);
+        customer.setTitlename(titlename);
+        customer.setName("Caca");
+        customer.setLname("abcdefghijklmnopqrstuvwxyzabcde");
         customer.setGender(gender);
         customer.setAddress("BA108 Suranaree");
         customer.setTel("0873018064");
@@ -285,7 +335,7 @@ public class CustomerTest {
     }
 
     @Test  //วันห้ามว่าง
-    void b6002008_testCustomerDateNullCase() { 
+    void b6002008_testDateMustNotBeNull() { 
         Customer customer = new Customer();
         LocalDateTime now = LocalDateTime.now();
         Employee employee = employeeRepository.findById(2);
