@@ -197,6 +197,37 @@ public class Pre_OrderTest {
     }
 
     @Test
+    void B6014551_testTitlenameNotBeNull(){
+
+        TitleName titlename = titlenameRepository.findById(1);
+        Brand brand = brandRepository.findById(2);
+        Type_Product type_product = type_productRepository.findById(3);
+        Employee employee = employeeRepository.findById(2);
+        LocalDateTime now = LocalDateTime.now();
+    
+        Pre_Order pre_order = new Pre_Order();
+        pre_order.setCus_name("Chanwee");
+        pre_order.setTel("0951239763");
+        pre_order.setQuantity(2);
+        pre_order.setEmployee(employee);
+        pre_order.setTitlename(null);
+        pre_order.setBrand(brand);
+        pre_order.setType_product(type_product);
+        pre_order.setDate(now);
+
+        Set<ConstraintViolation<Pre_Order>> result = validator.validate(pre_order);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Pre_Order> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("titlename", v.getPropertyPath().toString());
+    }
+
+
+    @Test
     void B6014551_testBrandNotBeNull(){
 
         TitleName titlename = titlenameRepository.findById(1);
