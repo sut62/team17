@@ -44,7 +44,7 @@ public class TitlenameTest {
     }
 
     @Test
-    void B6005795_testTitlenameMustNotBeNull() {
+    void b6002008_testTitlenameMustNotBeNull() {
         TitleName titlename = new TitleName();
         titlename.setTitle(null);
 
