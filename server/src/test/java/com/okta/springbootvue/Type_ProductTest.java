@@ -49,7 +49,7 @@ public class Type_ProductTest {
     }
 
     @Test
-    void B6012434_testType_ProducteMustNotิำNull(){
+    void B6012434_testType_ProducteMustNotNull(){
         Type_Product type_product = new Type_Product();
         type_product.setName(null);
 
