@@ -15,8 +15,8 @@ public class Brand {
 	@SequenceGenerator(name="BRAND_SEQ",sequenceName="BRAND_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BRAND_SEQ")
 	@Column(name="BRAND_ID",unique = true, nullable = true)
-	private @NonNull Long id;
-	private @NonNull String name;
+	private @NotNull Long id;
+	private @NotNull String name;
 
 	@OneToMany(fetch = FetchType.EAGER)
 	// mappedBy  = "rentCustomer"
