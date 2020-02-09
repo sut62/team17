@@ -4,6 +4,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -15,7 +19,10 @@ public class PointPrice {
 	@Column(name="POINT_PRICE_ID",unique = true, nullable = true)
 	private @NonNull Long id;
 
-	private @NonNull Integer type;
+	@NotNull
+	@Max(60)
+	@Min(30)
+	private Integer type;
 
 	@OneToMany(fetch = FetchType.EAGER)
 	private Collection<CollectPoint> collectpoint;
