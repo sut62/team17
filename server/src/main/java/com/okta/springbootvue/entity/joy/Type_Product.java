@@ -16,9 +16,9 @@ public class Type_Product {
     @SequenceGenerator(name="TYPE_PRODUCT_SEQ",sequenceName="TYPE_PRODUCT_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="TYPE_PRODUCT_SEQ")
     @Column(name="TYPE_PRODUCT_ID",unique = true, nullable = true)
-    private @NonNull Long id;
+    private @NotNull Long id;
 
-    private @NonNull String name;
+    private @NotNull String name;
 
     @OneToMany(fetch = FetchType.EAGER)
     // mappedBy  = "createdBy"
