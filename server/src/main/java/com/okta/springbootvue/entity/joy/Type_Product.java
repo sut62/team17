@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.util.Collection;
+import javax.validation.constraints.NotNull;
 
 
 @Data
@@ -17,8 +18,8 @@ public class Type_Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="TYPE_PRODUCT_SEQ")
     @Column(name="TYPE_PRODUCT_ID",unique = true, nullable = true)
     private @NotNull Long id;
-
-    private @NotNull String name;
+    @NotNull
+    private  String name;
 
     @OneToMany(fetch = FetchType.EAGER)
     // mappedBy  = "createdBy"

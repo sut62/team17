@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.util.Collection;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -16,7 +17,9 @@ public class Brand {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BRAND_SEQ")
 	@Column(name="BRAND_ID",unique = true, nullable = true)
 	private @NotNull Long id;
-	private @NotNull String name;
+	
+	@NotNull
+	private  String name;
 
 	@OneToMany(fetch = FetchType.EAGER)
 	// mappedBy  = "rentCustomer"
