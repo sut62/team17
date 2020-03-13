@@ -55,7 +55,7 @@ public class ProductController {
     @PathVariable long brand_id,
     @PathVariable long type_product_id,
     @PathVariable Integer quantity,
-    @PathVariable float price) {
+    @PathVariable Float price) {
     //VideoRental newVideoRental = new VideoRental();
 
     Employee employee = employeeRepository.findById(employee_id);

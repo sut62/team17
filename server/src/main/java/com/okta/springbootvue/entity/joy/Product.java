@@ -33,7 +33,7 @@ public class Product {
     @NotNull
     @Positive
     @Column(name="PRICE")
-    private  float price;
+    private  Float price;
 
     @NotNull
     @PastOrPresent
