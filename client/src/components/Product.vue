@@ -72,31 +72,22 @@
       <v-col cols="12" sm="4">
         <p>Quantity</p>
         <v-text-field
-        
-            type="number"
-            :min = "0"
-            solo
-            outlined
             v-model="product.quantity"
             label="Quantity"
             :rules="[(v) => !!v || 'Item is required']"
             required
+            outlined
           ></v-text-field>
       </v-col>
 
       <v-col cols="12" sm="4">
         <p>Price</p>
           <v-text-field
-          
-            type="number"
-            :min = "0"
-            solo
             outlined
             v-model="product.price"
             label="Price"
-            :rules="[(v) => !!v || 'Item is required']"
+            :rules ="[(v) => !!v || 'Item is required']"
             required
-
           ></v-text-field>
         </v-col>
     </v-row>
@@ -112,7 +103,7 @@
        <v-card>
             <v-card-title class="headline">notification</v-card-title>
             <v-card-text v-if="suc" >ทำรายการเสร็จสิ้น</v-card-text>
-            <v-card-text v-if="!suc" >กรุณากรอกข้อมูลให้ครบ!</v-card-text>
+            <v-card-text v-if="!suc" >กรุณากรอกข้อมูลให้ครบหรือใส่ค่าให้ถูกต้อง!</v-card-text>
             <v-card-actions><v-spacer></v-spacer>
               <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
             </v-card-actions>
@@ -209,12 +200,12 @@ export default {
       if (
         !this.product.brandId ||
         !this.product.type_productId ||
-        !this.product.quantity ||
-        !this.product.price
+        !this.product.quantity || this.product.quantity<0 ||
+        !this.product.price || this.product.price <0
       ) {
         this.suc = false;
         this.clear();
-      }else {
+      }else{
         http
           .post(
             "/product/" +
