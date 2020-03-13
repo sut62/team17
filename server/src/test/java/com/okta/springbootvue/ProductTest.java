@@ -52,7 +52,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(1);
-        product.setPrice(12);
+        product.setPrice((float)12);
         product.setEmployee(employee);
         product.setBrand(brand);
         product.setType_product(type_product);
@@ -62,7 +62,7 @@ public class ProductTest{
 
     Optional<Product> found = productRepository.findById(product.getId());
     assertEquals((int)1, (int)found.get().getQuantity());
-    assertEquals((int)12, (int)found.get().getPrice());
+    assertEquals((float)12, (float)found.get().getPrice());
     assertEquals(employee, found.get().getEmployee());
     assertEquals(brand, found.get().getBrand());
     assertEquals(type_product, found.get().getType_product());
@@ -77,7 +77,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(null);
-        product.setPrice(12000);
+        product.setPrice((float)12000);
         product.setEmployee(employee);
         product.setBrand(brand);
         product.setType_product(type_product);
@@ -124,7 +124,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(12);
-        product.setPrice(12000);
+        product.setPrice((float)12000);
         product.setEmployee(null);
         product.setBrand(brand);
         product.setType_product(type_product);
@@ -147,7 +147,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(12);
-        product.setPrice(12500);
+        product.setPrice((float)12500);
         product.setEmployee(employee);
         product.setBrand(null);
         product.setType_product(type_product);
@@ -170,7 +170,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(12);
-        product.setPrice(12500);
+        product.setPrice((float)12500);
         product.setEmployee(employee);
         product.setBrand(brand);
         product.setType_product(null);
@@ -194,7 +194,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(12);
-        product.setPrice(12500);
+        product.setPrice((float)12500);
         product.setEmployee(employee);
         product.setBrand(brand);
         product.setType_product(type_product);
@@ -218,7 +218,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(-50);
-        product.setPrice(12000);
+        product.setPrice((float)12000);
         product.setEmployee(employee);
         product.setBrand(brand);
         product.setType_product(type_product);
@@ -242,7 +242,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(50);
-        product.setPrice(-12000);
+        product.setPrice((float)-12000);
         product.setEmployee(employee);
         product.setBrand(brand);
         product.setType_product(type_product);
@@ -266,7 +266,7 @@ public class ProductTest{
         LocalDateTime now = LocalDateTime.now(); 
         Product product = new Product();
         product.setQuantity(50);
-        product.setPrice(12000);
+        product.setPrice((float)12000);
         product.setEmployee(employee);
         product.setBrand(brand);
         product.setType_product(type_product);
