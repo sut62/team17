@@ -44,18 +44,13 @@ public class ProductController {
         return productRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @GetMapping("/product/{id}")
-    public Product getProductId(@PathVariable("id") Long id) {
-         return productRepository.findById(id).get();
-    }
-
     @PostMapping("/product/{employee_id}/{brand_id}/{type_product_id}/{quantity}/{price}")
     public Product newProduct(Product newProduct,
     @PathVariable long employee_id, 
     @PathVariable long brand_id,
     @PathVariable long type_product_id,
     @PathVariable Integer quantity,
-    @PathVariable float price) {
+    @PathVariable Float price) {
     //VideoRental newVideoRental = new VideoRental();
 
     Employee employee = employeeRepository.findById(employee_id);
