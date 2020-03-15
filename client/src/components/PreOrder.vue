@@ -125,8 +125,9 @@
            </template>
           <v-card>
             <v-card-title class="headline">Notification</v-card-title>
-              <v-card-text v-if="suc" >Success</v-card-text>
-              <v-card-text v-if="!suc" >Please fill your information completely.</v-card-text>
+              <v-card-text v-if= "suc" >Save SUCCESS!</v-card-text>
+              <v-card-text v-if= "this.suc == null" >Save FALSE! Data is not correct.</v-card-text>
+              <v-card-text v-if= "this.suc == false" >Please fill your information completely.</v-card-text>
                 <v-card-actions><v-spacer></v-spacer>
                   <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
                 </v-card-actions>
@@ -282,6 +283,7 @@ export default {
         })
         .catch(e => {
           console.log(e);
+          this.suc = null;
         });
     }
     },
